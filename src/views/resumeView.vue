@@ -4,6 +4,7 @@ import { ref, onMounted } from "vue";
 const showAIDetectDrawer = ref(false);
 const isLoading = ref(false);
 const isInterviewQuestionsExpanded = ref(false);
+const highlightedElement = ref(null);
 
 const openAIDetectDrawer = () => {
   showAIDetectDrawer.value = true;
@@ -17,6 +18,11 @@ const openAIDetectDrawer = () => {
 
 const closeAIDetectDrawer = () => {
   showAIDetectDrawer.value = false;
+  // 清除高亮效果
+  if (highlightedElement.value) {
+    highlightedElement.value.classList.remove("highlight-content");
+    highlightedElement.value = null;
+  }
 };
 
 // 控制面試問題展開/折疊
@@ -24,11 +30,34 @@ const toggleInterviewQuestions = () => {
   isInterviewQuestionsExpanded.value = !isInterviewQuestionsExpanded.value;
 };
 
-// 將段落錨點功能實現為方法
-const scrollToSection = (sectionId) => {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+// 增強型定位功能：滾動到指定段落並高亮顯示
+const scrollToSection = (sectionId, targetText) => {
+  // 清除之前的高亮效果
+  if (highlightedElement.value) {
+    highlightedElement.value.classList.remove("highlight-content");
+  }
+
+  const section = document.getElementById(sectionId);
+  if (section) {
+    // 如果有提供目標文字，直接尋找並高亮包含該文字的元素
+    if (targetText) {
+      // 尋找包含特定文本的段落元素
+      const paragraphs = section.querySelectorAll("p");
+      for (const p of paragraphs) {
+        if (p.textContent.includes(targetText)) {
+          // 添加高亮效果
+          p.classList.add("highlight-content");
+          highlightedElement.value = p;
+
+          // 直接滾動到高亮元素，不先滾動到段落頂部
+          p.scrollIntoView({ behavior: "smooth", block: "center" });
+          return; // 找到目標後直接返回
+        }
+      }
+    }
+
+    // 如果沒有找到匹配文本或沒有提供目標文字，則滾動到段落頂部
+    section.scrollIntoView({ behavior: "smooth" });
   }
 };
 </script>
@@ -720,7 +749,7 @@ const scrollToSection = (sectionId) => {
         <!-- 實際內容 -->
         <div v-else>
           <p class="text-16px leading-24px mb-4 text-start mt-0">
-            您可以查看並點擊相應錨點跳轉到履歷上的對應段落。
+            查看並點擊相應錨點跳轉到履歷上的對應段落。
           </p>
 
           <!-- 錨點導航按鈕 -->
@@ -750,14 +779,25 @@ const scrollToSection = (sectionId) => {
             <h3 class="text-18px font-bold">建議關注內容</h3>
             <div class="mb-2">
               <div class="flex items-start mb-1">
-                <span class="font-bold mr-2">1.</span>
+                <span class="font-bold">1.</span>
                 <div>
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
-                    @click="scrollToSection('experience-section')"
+                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                    @click="
+                      scrollToSection(
+                        'experience-section',
+                        '主導10項品牌推廣專案'
+                      )
+                    "
                   >
-                    <p class="text-14px leading-22px font-bold m-0">
+                    <p class="text-14px leading-22px font-bold m-0 flex">
                       主導10項品牌推廣專案，平均專案達成率98%，協助客戶品牌社群互動率提升60%。
+                      <span class="click-hint ml-2">
+                        <img
+                          src="@/assets/images/icon_scroll_to.svg"
+                          alt="定位指示器"
+                        />
+                      </span>
                     </p>
                   </div>
                   <p class="text-14px leading-22px mt-1 ml-3 text-#555">
@@ -769,14 +809,25 @@ const scrollToSection = (sectionId) => {
 
             <div class="mb-2">
               <div class="flex items-start mb-1">
-                <span class="font-bold mr-2">2.</span>
+                <span class="font-bold">2.</span>
                 <div>
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
-                    @click="scrollToSection('experience-section')"
+                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                    @click="
+                      scrollToSection(
+                        'experience-section',
+                        '分析市場數據，調整行銷策略'
+                      )
+                    "
                   >
-                    <p class="text-14px leading-22px font-bold m-0">
+                    <p class="text-14px leading-22px font-bold m-0 flex">
                       分析市場數據，調整行銷策略，三個月內提升客戶網站自然流量成長180%。
+                      <span class="click-hint ml-2">
+                        <img
+                          src="@/assets/images/icon_scroll_to.svg"
+                          alt="定位指示器"
+                        />
+                      </span>
                     </p>
                   </div>
                   <p class="text-14px leading-22px mt-1 ml-3 text-#555">
@@ -788,14 +839,25 @@ const scrollToSection = (sectionId) => {
 
             <div class="mb-2">
               <div class="flex items-start mb-1">
-                <span class="font-bold mr-2">3.</span>
+                <span class="font-bold">3.</span>
                 <div>
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
-                    @click="scrollToSection('experience-section')"
+                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                    @click="
+                      scrollToSection(
+                        'experience-section',
+                        '【電商類商品頁改版】'
+                      )
+                    "
                   >
-                    <p class="text-14px leading-22px font-bold m-0">
+                    <p class="text-14px leading-22px font-bold m-0 flex">
                       【電商類商品頁改版】成效：商品頁轉換率成長21%，業績成長4.3%
+                      <span class="click-hint ml-2">
+                        <img
+                          src="@/assets/images/icon_scroll_to.svg"
+                          alt="定位指示器"
+                        />
+                      </span>
                     </p>
                   </div>
                   <p class="text-14px leading-22px mt-1 ml-3 text-#555">
@@ -804,14 +866,14 @@ const scrollToSection = (sectionId) => {
                 </div>
               </div>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-t-#eee">
-              <p class="text-14px leading-22px mb-2 text-#555">
-                整體分析：履歷中多處使用精確數據、段落結構高度一致且使用專業詞彙頻率異常，這些特徵統計上與AI生成內容相似度較高。建議面試時針對數據和專案細節進行深入詢問。
-              </p>
-            </div>
           </div>
 
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold">整體分析</h3>
+            <p class="text-14px leading-22px mb-2 text-#555">
+              履歷中多處使用精確數據、段落結構高度一致且使用專業詞彙頻率異常，這些特徵統計上與AI生成內容相似度較高。建議面試時針對數據和專案細節進行深入詢問。
+            </p>
+          </div>
           <!-- 面試建議問題 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-10">
             <div
@@ -899,6 +961,33 @@ const scrollToSection = (sectionId) => {
 .side-drawer {
   overscroll-behavior: contain;
   border-left: 1px solid #eee;
+}
+
+/* 點擊提示樣式 */
+.click-area {
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+
+  .click-hint {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    background-color: #f0f0f0;
+
+    .click-hint {
+      opacity: 1;
+    }
+  }
+}
+
+/* 內容高亮樣式 */
+.highlight-content {
+  background-color: rgba(255, 235, 59, 0.5);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
 }
 
 /* Skeleton Loading 樣式 */
