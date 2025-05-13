@@ -247,17 +247,17 @@ const scrollToSection = (sectionId, targetText) => {
                   </p>
                   <div class="mb-4">
                     <button
-                      class="w-32 h-38px bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px mr-6"
+                      class="w-32 py-2 bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px mr-6"
                     >
                       邀約
                     </button>
                     <button
-                      class="w-32 h-38px bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px mr-6"
+                      class="w-32 py-2 bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px mr-6"
                     >
                       聊聊
                     </button>
                     <button
-                      class="w-32 h-38px bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px"
+                      class="w-32 py-2 bg-#eee border-solid border-1 border-#a9a9a9 font-400 rounded-4px"
                     >
                       聯繫方式
                     </button>
