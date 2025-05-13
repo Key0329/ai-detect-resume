@@ -7,6 +7,29 @@ const isInterviewQuestionsExpanded = ref(false);
 const highlightedElement = ref(null);
 const isCopied = ref(false);
 
+// 新增反饋狀態追蹤
+const feedbacks = ref({
+  item1: { liked: false, disliked: false },
+  item2: { liked: false, disliked: false },
+  item3: { liked: false, disliked: false },
+  item4: { liked: false, disliked: false },
+  item5: { liked: false, disliked: false },
+});
+
+// 處理用戶反饋
+const handleFeedback = (itemId, type) => {
+  // 如果用戶點擊已選中的按鈕，則取消選中
+  if (type === "like" && feedbacks.value[itemId].liked) {
+    feedbacks.value[itemId].liked = false;
+  } else if (type === "dislike" && feedbacks.value[itemId].disliked) {
+    feedbacks.value[itemId].disliked = false;
+  } else {
+    // 否則，選中新按鈕並取消另一個按鈕的選中狀態
+    feedbacks.value[itemId].liked = type === "like";
+    feedbacks.value[itemId].disliked = type === "dislike";
+  }
+};
+
 const openAIDetectDrawer = () => {
   showAIDetectDrawer.value = true;
   isLoading.value = true;
@@ -860,7 +883,7 @@ const scrollToSection = (sectionId, targetText) => {
             <div class="mb-2">
               <div class="flex items-start mb-1">
                 <span class="font-bold">1.</span>
-                <div>
+                <div class="w-full">
                   <div
                     class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
                     @click="
@@ -883,9 +906,61 @@ const scrollToSection = (sectionId, targetText) => {
                       </span>
                     </p>
                   </div>
-                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                    關注原因：敘述過於制式化且使用通用詞彙，缺乏具體說明如何運用微服務架構及實際提升可擴展性的方法和過程。
-                  </p>
+                  <div>
+                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                      關注原因：敘述過於制式化且使用通用詞彙，缺乏具體說明如何運用微服務架構及實際提升可擴展性的方法和過程。
+                      <span class="flex justify-end mt-2">
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item1', 'like')"
+                          :class="{ 'text-#4CAF50': feedbacks.item1.liked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item1.liked ? '#4CAF50' : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            ></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item1', 'dislike')"
+                          :class="{ 'text-#F44336': feedbacks.item1.disliked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item1.disliked
+                                ? '#F44336'
+                                : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                            ></path>
+                          </svg>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -893,7 +968,7 @@ const scrollToSection = (sectionId, targetText) => {
             <div class="mb-2">
               <div class="flex items-start mb-1">
                 <span class="font-bold">2.</span>
-                <div>
+                <div class="w-full">
                   <div
                     class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
                     @click="scrollToSection('skills-section', '高級程式設計')"
@@ -911,9 +986,61 @@ const scrollToSection = (sectionId, targetText) => {
                       </span>
                     </p>
                   </div>
-                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                    關注原因：堆砌多種技術關鍵字但未提及實際應用場景，「精通」、「高效能系統建構」等表述過於抽象，缺乏可驗證的專案實例。
-                  </p>
+                  <div>
+                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                      關注原因：堆砌多種技術關鍵字但未提及實際應用場景，「精通」、「高效能系統建構」等表述過於抽象，缺乏可驗證的專案實例。
+                      <span class="flex justify-end mt-2">
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item2', 'like')"
+                          :class="{ 'text-#4CAF50': feedbacks.item2.liked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item2.liked ? '#4CAF50' : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            ></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item2', 'dislike')"
+                          :class="{ 'text-#F44336': feedbacks.item2.disliked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item2.disliked
+                                ? '#F44336'
+                                : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                            ></path>
+                          </svg>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -921,7 +1048,7 @@ const scrollToSection = (sectionId, targetText) => {
             <div class="mb-2">
               <div class="flex items-start mb-1">
                 <span class="font-bold">3.</span>
-                <div>
+                <div class="w-full">
                   <div
                     class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
                     @click="
@@ -943,9 +1070,61 @@ const scrollToSection = (sectionId, targetText) => {
                       </span>
                     </p>
                   </div>
-                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                    關注原因：自傳中出現大量套話與形容詞，如「堅信」「積極」「卓越」等，缺乏個人獨特經歷或具體案例佐證，語調過於制式。
-                  </p>
+                  <div>
+                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                      關注原因：自傳中出現大量套話與形容詞，如「堅信」「積極」「卓越」等，缺乏個人獨特經歷或具體案例佐證，語調過於制式。
+                      <span class="flex justify-end mt-2">
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item3', 'like')"
+                          :class="{ 'text-#4CAF50': feedbacks.item3.liked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item3.liked ? '#4CAF50' : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            ></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item3', 'dislike')"
+                          :class="{ 'text-#F44336': feedbacks.item3.disliked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item3.disliked
+                                ? '#F44336'
+                                : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                            ></path>
+                          </svg>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -953,7 +1132,7 @@ const scrollToSection = (sectionId, targetText) => {
             <div class="mb-2">
               <div class="flex items-start mb-1">
                 <span class="font-bold">4.</span>
-                <div>
+                <div class="w-full">
                   <div
                     class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
                     @click="
@@ -975,9 +1154,61 @@ const scrollToSection = (sectionId, targetText) => {
                       </span>
                     </p>
                   </div>
-                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                    關注原因：使用「深耕逾十年」「奠定堅實的技術基礎」等過於正式與通用的措辭，缺乏個人真實經歷描述，呈現AI生成的特徵。
-                  </p>
+                  <div>
+                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                      關注原因：使用「深耕逾十年」「奠定堅實的技術基礎」等過於正式與通用的措辭，缺乏個人真實經歷描述，呈現AI生成的特徵。
+                      <span class="flex justify-end mt-2">
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item4', 'like')"
+                          :class="{ 'text-#4CAF50': feedbacks.item4.liked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item4.liked ? '#4CAF50' : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            ></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item4', 'dislike')"
+                          :class="{ 'text-#F44336': feedbacks.item4.disliked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item4.disliked
+                                ? '#F44336'
+                                : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                            ></path>
+                          </svg>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -985,7 +1216,7 @@ const scrollToSection = (sectionId, targetText) => {
             <div class="mb-2">
               <div class="flex items-start mb-1">
                 <span class="font-bold">5.</span>
-                <div>
+                <div class="w-full">
                   <div
                     class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
                     @click="
@@ -1008,9 +1239,61 @@ const scrollToSection = (sectionId, targetText) => {
                       </span>
                     </p>
                   </div>
-                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                    關注原因：使用精確數字（40%、15%）誇大專案成果，但缺乏具體細節說明，顯得公式化，是AI生成內容的典型特徵。
-                  </p>
+                  <div>
+                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                      關注原因：使用精確數字（40%、15%）誇大專案成果，但缺乏具體細節說明，顯得公式化，是AI生成內容的典型特徵。
+                      <span class="flex justify-end mt-2">
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item5', 'like')"
+                          :class="{ 'text-#4CAF50': feedbacks.item5.liked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item5.liked ? '#4CAF50' : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            ></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                          @click="handleFeedback('item5', 'dislike')"
+                          :class="{ 'text-#F44336': feedbacks.item5.disliked }"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            :stroke="
+                              feedbacks.item5.disliked
+                                ? '#F44336'
+                                : 'currentColor'
+                            "
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                            ></path>
+                          </svg>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
