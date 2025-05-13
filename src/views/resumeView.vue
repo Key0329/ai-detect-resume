@@ -221,7 +221,7 @@ const scrollToSection = (sectionId, targetText) => {
               <div
                 class="banner bg-[url(https://cdn.104-dev.com.tw/static/images/cprofile/themeDefault/info-default-1.svg)] bg-no-repeat bg-center bg-cover h-270px w-full"
               ></div>
-              <div class="bg-white pb-4 relative px-6">
+              <div class="relative bg-white pb-4 relative px-6">
                 <!-- avatar -->
                 <div
                   class="flex justify-center items-center w-32 h-32 rounded-full bg-white absolute -top-8 -translate-y-8"
@@ -231,6 +231,17 @@ const scrollToSection = (sectionId, targetText) => {
                     alt=""
                     class="w-30 h-30 object-cover bg-gray-300 rounded-full"
                   />
+                </div>
+                <!-- name -->
+                <div
+                  class="absolute -top-10 left-43 text-24px font-bold text-#292929 flex items-center"
+                >
+                  <div>李冠宇</div>
+                  <div
+                    class="text-14px leading-20px font-400 text-white ml-3 bg-#292929 opacity-70 px-2 rounded-full"
+                  >
+                    軟體工程師
+                  </div>
                 </div>
                 <!-- 履歷資訊 -->
                 <div class="pt-4 ml-38 text-start pb-15">
