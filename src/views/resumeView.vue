@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 
 const showAIDetectDrawer = ref(false);
 const isLoading = ref(false);
+const isInterviewQuestionsExpanded = ref(false);
 
 const openAIDetectDrawer = () => {
   showAIDetectDrawer.value = true;
@@ -16,6 +17,11 @@ const openAIDetectDrawer = () => {
 
 const closeAIDetectDrawer = () => {
   showAIDetectDrawer.value = false;
+};
+
+// 控制面試問題展開/折疊
+const toggleInterviewQuestions = () => {
+  isInterviewQuestionsExpanded.value = !isInterviewQuestionsExpanded.value;
 };
 
 // 將段落錨點功能實現為方法
@@ -661,13 +667,13 @@ const scrollToSection = (sectionId) => {
 
     <!-- AI檢測 Side Drawer (無遮罩層) -->
     <div
-      class="side-drawer fixed top-0 right-0 h-full bg-white z-50 w-400px transform transition-transform duration-300 ease-in-out shadow-lg"
+      class="side-drawer fixed top-0 right-0 h-full bg-white z-50 w-400px transform transition-transform duration-300 ease-in-out shadow-lg text-start"
       :class="showAIDetectDrawer ? 'translate-x-0' : 'translate-x-full'"
     >
       <div
         class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
       >
-        <h2 class="text-20px font-bold">AI 檢測結果</h2>
+        <h2 class="text-20px font-bold m-0">檢測結果</h2>
         <button
           class="text-24px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
           @click="closeAIDetectDrawer"
@@ -713,9 +719,8 @@ const scrollToSection = (sectionId) => {
 
         <!-- 實際內容 -->
         <div v-else>
-          <p class="text-16px leading-24px mb-4">
-            這裡是 AI
-            檢測結果的內容，您可以查看檢測結果並點擊相應錨點跳轉到履歷上的對應段落。
+          <p class="text-16px leading-24px mb-4 text-start mt-0">
+            您可以查看並點擊相應錨點跳轉到履歷上的對應段落。
           </p>
 
           <!-- 錨點導航按鈕 -->
@@ -740,58 +745,145 @@ const scrollToSection = (sectionId) => {
             </button>
           </div>
 
-          <!-- 檢測摘要 -->
+          <!-- 整合後的分析區塊 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-            <h3 class="text-18px font-bold mb-2">檢測摘要</h3>
-            <p class="text-14px leading-22px">
-              履歷內容疑似使用AI生成，可信度評分為 75%。
-            </p>
+            <h3 class="text-18px font-bold">建議關注內容</h3>
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <span class="font-bold mr-2">1.</span>
+                <div>
+                  <div
+                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
+                    @click="scrollToSection('experience-section')"
+                  >
+                    <p class="text-14px leading-22px font-bold m-0">
+                      主導10項品牌推廣專案，平均專案達成率98%，協助客戶品牌社群互動率提升60%。
+                    </p>
+                  </div>
+                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                    關注原因：數據精確度異常，實際專案很難達到如此高的成功率，建議詢問具體計算方式及證明。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <span class="font-bold mr-2">2.</span>
+                <div>
+                  <div
+                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
+                    @click="scrollToSection('experience-section')"
+                  >
+                    <p class="text-14px leading-22px font-bold m-0">
+                      分析市場數據，調整行銷策略，三個月內提升客戶網站自然流量成長180%。
+                    </p>
+                  </div>
+                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                    關注原因：短期內達到如此高的流量成長數據不太常見，SEO優化通常需要更長時間才能產生如此顯著效果。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <span class="font-bold mr-2">3.</span>
+                <div>
+                  <div
+                    class="border-l-4 border-l-#ff6b6b pl-3 py-1 cursor-pointer hover:bg-#f0f0f0"
+                    @click="scrollToSection('experience-section')"
+                  >
+                    <p class="text-14px leading-22px font-bold m-0">
+                      【電商類商品頁改版】成效：商品頁轉換率成長21%，業績成長4.3%
+                    </p>
+                  </div>
+                  <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                    關注原因：多處出現精確到小數點的百分比，而實際專案中通常會有更多變數影響準確度，建議確認數據來源與測量方法。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-t-#eee">
+              <p class="text-14px leading-22px mb-2 text-#555">
+                整體分析：履歷中多處使用精確數據、段落結構高度一致且使用專業詞彙頻率異常，這些特徵統計上與AI生成內容相似度較高。建議面試時針對數據和專案細節進行深入詢問。
+              </p>
+            </div>
           </div>
 
-          <!-- 可疑段落 -->
-          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-            <h3 class="text-18px font-bold mb-2">可疑段落</h3>
-            <div class="border-l-4 border-l-#ff6b6b pl-3 py-1 mb-2">
-              <p class="text-14px leading-22px">
-                主導10項品牌推廣專案，平均專案達成率98%，協助客戶品牌社群互動率提升60%。
-              </p>
-              <button
-                @click="scrollToSection('experience-section')"
-                class="text-12px text-#00afb8 mt-1"
+          <!-- 面試建議問題 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-10">
+            <div
+              class="flex justify-between items-center cursor-pointer"
+              @click="toggleInterviewQuestions"
+            >
+              <h3 class="text-18px font-bold my-0">面試建議問題</h3>
+              <div
+                class="transform transition-transform duration-300"
+                :class="isInterviewQuestionsExpanded ? 'rotate-180' : ''"
               >
-                跳轉到相關段落 →
-              </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
             </div>
-            <div class="border-l-4 border-l-#ff6b6b pl-3 py-1">
-              <p class="text-14px leading-22px">
-                分析市場數據，調整行銷策略，三個月內提升客戶網站自然流量成長180%。
-              </p>
-              <button
-                @click="scrollToSection('experience-section')"
-                class="text-12px text-#00afb8 mt-1"
-              >
-                跳轉到相關段落 →
-              </button>
-            </div>
-          </div>
 
-          <!-- AI檢測詳細分析 -->
-          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-            <h3 class="text-18px font-bold mb-2">詳細分析</h3>
-            <p class="text-14px leading-22px mb-2">
-              此履歷的用詞風格、數據呈現和段落結構顯示了以下特徵：
-            </p>
-            <ul class="pl-5 list-disc">
-              <li class="text-14px leading-22px mb-1">
-                工作經驗描述中包含過於精確的數據 (98%, 60%, 180%)
-              </li>
-              <li class="text-14px leading-22px mb-1">
-                專業詞彙連續使用頻率異常
-              </li>
-              <li class="text-14px leading-22px mb-1">
-                段落結構高度一致，顯示模板化特徵
-              </li>
-            </ul>
+            <div
+              v-if="isInterviewQuestionsExpanded"
+              class="mt-3 transition-all duration-300"
+            >
+              <p class="text-14px leading-22px mb-3">
+                以下是針對該履歷內容的建議問題，可直接複製使用：
+              </p>
+
+              <div
+                class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8"
+              >
+                <p class="text-14px leading-22px mb-1 font-bold">
+                  針對數據成效提問：
+                </p>
+                <p
+                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
+                >
+                  "您提到專案達成率達98%，能否分享如何計算和衡量這個比率的？具體指哪些項目達成了目標？"
+                </p>
+              </div>
+
+              <div
+                class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8"
+              >
+                <p class="text-14px leading-22px mb-1 font-bold">
+                  請求具體實例：
+                </p>
+                <p
+                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
+                >
+                  "您提到提升客戶網站自然流量成長180%，能否分享是使用什麼具體策略達成的？可以舉一個實際案例嗎？"
+                </p>
+              </div>
+
+              <div class="p-3 bg-white rounded-4px border-l-4 border-l-#00AFB8">
+                <p class="text-14px leading-22px mb-1 font-bold">
+                  探詢挑戰與應對：
+                </p>
+                <p
+                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
+                >
+                  "在這些專案中，您遇到了哪些具體的挑戰？能分享一下您是如何克服這些困難的嗎？"
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
