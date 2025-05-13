@@ -5,6 +5,7 @@ const showAIDetectDrawer = ref(false);
 const isLoading = ref(false);
 const isInterviewQuestionsExpanded = ref(false);
 const highlightedElement = ref(null);
+const isCopied = ref(false);
 
 const openAIDetectDrawer = () => {
   showAIDetectDrawer.value = true;
@@ -28,6 +29,16 @@ const closeAIDetectDrawer = () => {
 // 控制面試問題展開/折疊
 const toggleInterviewQuestions = () => {
   isInterviewQuestionsExpanded.value = !isInterviewQuestionsExpanded.value;
+};
+
+// 複製文字到剪貼簿
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text).then(() => {
+    isCopied.value = true;
+    setTimeout(() => {
+      isCopied.value = false;
+    }, 2000);
+  });
 };
 
 // 增強型定位功能：滾動到指定段落並高亮顯示
@@ -880,7 +891,7 @@ const scrollToSection = (sectionId, targetText) => {
               class="flex justify-between items-center cursor-pointer"
               @click="toggleInterviewQuestions"
             >
-              <h3 class="text-18px font-bold my-0">面試建議問題</h3>
+              <h3 class="text-18px font-bold my-0">建議提問問題</h3>
               <div
                 class="transform transition-transform duration-300"
                 :class="isInterviewQuestionsExpanded ? 'rotate-180' : ''"
@@ -902,54 +913,159 @@ const scrollToSection = (sectionId, targetText) => {
             </div>
 
             <div
-              v-if="isInterviewQuestionsExpanded"
-              class="mt-3 transition-all duration-300"
+              class="interview-questions-container"
+              :class="{ expanded: isInterviewQuestionsExpanded }"
             >
-              <p class="text-14px leading-22px mb-3">
-                以下是針對該履歷內容的建議問題，可直接複製使用：
-              </p>
+              <div class="interview-questions-content">
+                <template v-if="isInterviewQuestionsExpanded">
+                  <p class="text-14px leading-22px mb-3">
+                    以下是針對該履歷內容的建議問題，可直接複製使用：
+                  </p>
 
-              <div
-                class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8"
-              >
-                <p class="text-14px leading-22px mb-1 font-bold">
-                  針對數據成效提問：
-                </p>
-                <p
-                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
-                >
-                  "您提到專案達成率達98%，能否分享如何計算和衡量這個比率的？具體指哪些項目達成了目標？"
-                </p>
-              </div>
+                  <div
+                    class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
+                    @click="
+                      copyToClipboard(
+                        '您提到專案達成率達98%，能否分享如何計算和衡量這個比率的？具體指哪些項目達成了目標？'
+                      )
+                    "
+                  >
+                    <div
+                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#00AFB8"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-14px leading-22px mb-1 font-bold">
+                      針對數據成效提問：
+                    </p>
+                    <p
+                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
+                    >
+                      "您提到專案達成率達98%，能否分享如何計算和衡量這個比率的？具體指哪些項目達成了目標？"
+                    </p>
+                  </div>
 
-              <div
-                class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8"
-              >
-                <p class="text-14px leading-22px mb-1 font-bold">
-                  請求具體實例：
-                </p>
-                <p
-                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
-                >
-                  "您提到提升客戶網站自然流量成長180%，能否分享是使用什麼具體策略達成的？可以舉一個實際案例嗎？"
-                </p>
-              </div>
+                  <div
+                    class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
+                    @click="
+                      copyToClipboard(
+                        '您提到提升客戶網站自然流量成長180%，能否分享是使用什麼具體策略達成的？可以舉一個實際案例嗎？'
+                      )
+                    "
+                  >
+                    <div
+                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#00AFB8"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-14px leading-22px mb-1 font-bold">
+                      請求具體實例：
+                    </p>
+                    <p
+                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
+                    >
+                      "您提到提升客戶網站自然流量成長180%，能否分享是使用什麼具體策略達成的？可以舉一個實際案例嗎？"
+                    </p>
+                  </div>
 
-              <div class="p-3 bg-white rounded-4px border-l-4 border-l-#00AFB8">
-                <p class="text-14px leading-22px mb-1 font-bold">
-                  探詢挑戰與應對：
-                </p>
-                <p
-                  class="text-14px leading-22px cursor-pointer hover:bg-#f0f0f0 p-1"
-                >
-                  "在這些專案中，您遇到了哪些具體的挑戰？能分享一下您是如何克服這些困難的嗎？"
-                </p>
+                  <div
+                    class="p-3 bg-white rounded-4px border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
+                    @click="
+                      copyToClipboard(
+                        '在這些專案中，您遇到了哪些具體的挑戰？能分享一下您是如何克服這些困難的嗎？'
+                      )
+                    "
+                  >
+                    <div
+                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#00AFB8"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-14px leading-22px mb-1 font-bold">
+                      探詢挑戰與應對：
+                    </p>
+                    <p
+                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
+                    >
+                      "在這些專案中，您遇到了哪些具體的挑戰？能分享一下您是如何克服這些困難的嗎？"
+                    </p>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 複製狀態提示 -->
+    <div v-if="isCopied" class="copy-success">已複製到剪貼簿！</div>
   </div>
 </template>
 
@@ -1068,5 +1184,35 @@ const scrollToSection = (sectionId, targetText) => {
   50% {
     opacity: 0.5;
   }
+}
+
+/* 複製狀態提示 */
+.copy-success {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+/* 面試問題滑動效果 */
+.interview-questions-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.interview-questions-container.expanded {
+  grid-template-rows: 1fr;
+}
+
+.interview-questions-content {
+  min-height: 0;
+  overflow: hidden;
 }
 </style>
