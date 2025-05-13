@@ -1,4 +1,31 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+
+const showAIDetectDrawer = ref(false);
+const isLoading = ref(false);
+
+const openAIDetectDrawer = () => {
+  showAIDetectDrawer.value = true;
+  isLoading.value = true;
+
+  // 模擬AI檢測過程，3秒後顯示結果
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+};
+
+const closeAIDetectDrawer = () => {
+  showAIDetectDrawer.value = false;
+};
+
+// 將段落錨點功能實現為方法
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
+</script>
 <template>
   <div class="resume">
     <header>
@@ -222,7 +249,7 @@
                 </div>
               </div>
               <!-- 教育背景 -->
-              <div class="bg-white mt-4">
+              <div id="education-section" class="bg-white mt-4">
                 <div class="px-6 py-3 border-b-solid border-b-#eeeeee">
                   <p class="text-18px font-700 leading-24px m-0 text-start">
                     教育背景
@@ -258,7 +285,7 @@
                 </div>
               </div>
               <!-- 工作經驗 -->
-              <div class="bg-white mt-4">
+              <div id="experience-section" class="bg-white mt-4">
                 <div class="px-6 py-3 border-b-solid border-b-#eeeeee">
                   <p class="text-18px font-700 leading-24px m-0 text-start">
                     工作經驗
@@ -492,7 +519,7 @@
                 </div>
               </div>
               <!-- 求職條件 -->
-              <div class="bg-white mt-4">
+              <div id="job-requirements-section" class="bg-white mt-4">
                 <div class="px-6 py-3 border-b-solid border-b-#eeeeee">
                   <p class="text-18px font-700 leading-24px m-0 text-start">
                     求職條件
@@ -623,6 +650,7 @@
             </button>
             <button
               class="flex justify-center items-center mt-6 px-2 tracking-8px indent-8px min-w-50 text-white h-38px bg-#00afb8 border-solid border-1 border-#00afb8 rounded-4px font-400"
+              @click="openAIDetectDrawer"
             >
               AI檢測
             </button>
@@ -630,7 +658,234 @@
         </div>
       </div>
     </main>
+
+    <!-- AI檢測 Side Drawer (無遮罩層) -->
+    <div
+      class="side-drawer fixed top-0 right-0 h-full bg-white z-50 w-400px transform transition-transform duration-300 ease-in-out shadow-lg"
+      :class="showAIDetectDrawer ? 'translate-x-0' : 'translate-x-full'"
+    >
+      <div
+        class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
+      >
+        <h2 class="text-20px font-bold">AI 檢測結果</h2>
+        <button
+          class="text-24px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
+          @click="closeAIDetectDrawer"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="drawer-body p-4 overflow-y-auto h-[calc(100%-66px)]">
+        <!-- Skeleton loading -->
+        <div v-if="isLoading" class="skeleton-container">
+          <div class="flex items-center mb-6">
+            <div class="skeleton-circle"></div>
+            <div class="ml-3">
+              <div class="skeleton-line w-3/4"></div>
+              <div class="skeleton-line w-1/2 mt-2"></div>
+            </div>
+          </div>
+
+          <div class="skeleton-block mb-6"></div>
+
+          <div class="flex justify-center items-center mb-6">
+            <div class="skeleton-progress"></div>
+            <div class="skeleton-percentage ml-2"></div>
+          </div>
+
+          <div class="skeleton-line w-full"></div>
+          <div class="skeleton-line w-full mt-2"></div>
+          <div class="skeleton-line w-3/4 mt-2"></div>
+
+          <div class="skeleton-block mt-6"></div>
+          <div class="skeleton-block mt-4"></div>
+
+          <div class="flex items-center justify-between mt-6">
+            <div class="skeleton-button"></div>
+            <div class="skeleton-button"></div>
+            <div class="skeleton-button"></div>
+          </div>
+
+          <div class="skeleton-pulse text-center mt-4 text-#888 text-14px">
+            正在分析履歷內容...
+          </div>
+        </div>
+
+        <!-- 實際內容 -->
+        <div v-else>
+          <p class="text-16px leading-24px mb-4">
+            這裡是 AI
+            檢測結果的內容，您可以查看檢測結果並點擊相應錨點跳轉到履歷上的對應段落。
+          </p>
+
+          <!-- 錨點導航按鈕 -->
+          <div class="mb-6 flex flex-wrap gap-2">
+            <button
+              @click="scrollToSection('education-section')"
+              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
+            >
+              教育背景
+            </button>
+            <button
+              @click="scrollToSection('experience-section')"
+              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
+            >
+              工作經驗
+            </button>
+            <button
+              @click="scrollToSection('job-requirements-section')"
+              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
+            >
+              求職條件
+            </button>
+          </div>
+
+          <!-- 檢測摘要 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold mb-2">檢測摘要</h3>
+            <p class="text-14px leading-22px">
+              履歷內容疑似使用AI生成，可信度評分為 75%。
+            </p>
+          </div>
+
+          <!-- 可疑段落 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold mb-2">可疑段落</h3>
+            <div class="border-l-4 border-l-#ff6b6b pl-3 py-1 mb-2">
+              <p class="text-14px leading-22px">
+                主導10項品牌推廣專案，平均專案達成率98%，協助客戶品牌社群互動率提升60%。
+              </p>
+              <button
+                @click="scrollToSection('experience-section')"
+                class="text-12px text-#00afb8 mt-1"
+              >
+                跳轉到相關段落 →
+              </button>
+            </div>
+            <div class="border-l-4 border-l-#ff6b6b pl-3 py-1">
+              <p class="text-14px leading-22px">
+                分析市場數據，調整行銷策略，三個月內提升客戶網站自然流量成長180%。
+              </p>
+              <button
+                @click="scrollToSection('experience-section')"
+                class="text-12px text-#00afb8 mt-1"
+              >
+                跳轉到相關段落 →
+              </button>
+            </div>
+          </div>
+
+          <!-- AI檢測詳細分析 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold mb-2">詳細分析</h3>
+            <p class="text-14px leading-22px mb-2">
+              此履歷的用詞風格、數據呈現和段落結構顯示了以下特徵：
+            </p>
+            <ul class="pl-5 list-disc">
+              <li class="text-14px leading-22px mb-1">
+                工作經驗描述中包含過於精確的數據 (98%, 60%, 180%)
+              </li>
+              <li class="text-14px leading-22px mb-1">
+                專業詞彙連續使用頻率異常
+              </li>
+              <li class="text-14px leading-22px mb-1">
+                段落結構高度一致，顯示模板化特徵
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.drawer-overlay {
+  backdrop-filter: blur(1px);
+}
+
+.side-drawer {
+  overscroll-behavior: contain;
+  border-left: 1px solid #eee;
+}
+
+/* Skeleton Loading 樣式 */
+.skeleton-container {
+  padding: 12px 0;
+}
+
+.skeleton-line {
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-block {
+  height: 80px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-progress {
+  width: 70%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-percentage {
+  width: 40px;
+  height: 24px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-button {
+  width: 80px;
+  height: 32px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+</style>
