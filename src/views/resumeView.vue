@@ -426,11 +426,11 @@ const scrollToSection = (sectionId, targetText) => {
                   <!-- 一個工作經驗 -->
                   <div class="flex py-5 px-6">
                     <div
-                      class="bg-#1654B9 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12"
+                      class="bg-#1654B9 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12 flex-shrink-0"
                     >
                       A
                     </div>
-                    <div class="border-b-solid border-b-#eeeeee w-full">
+                    <div class="border-b-solid border-b-#eeeeee">
                       <div class="flex justify-between gap-6 w-full">
                         <div>
                           <p
@@ -489,7 +489,7 @@ const scrollToSection = (sectionId, targetText) => {
                   <!-- 一個工作經驗 -->
                   <div class="flex py-5 px-6">
                     <div
-                      class="bg-#6FB823 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12"
+                      class="bg-#6FB823 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12 flex-shrink-0"
                     >
                       X
                     </div>
@@ -555,7 +555,7 @@ const scrollToSection = (sectionId, targetText) => {
                   <!-- 一個工作經驗 -->
                   <div class="flex py-5 px-6">
                     <div
-                      class="bg-#00AFB8 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12"
+                      class="bg-#00AFB8 text-white rounded-8px box-border w-14 h-14 text-24px font-700 leading-14 text-center overflow-hidden mr-12 flex-shrink-0"
                     >
                       D
                     </div>
