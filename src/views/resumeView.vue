@@ -967,7 +967,7 @@ const downloadQuestions = () => {
               "
               @click="activeTab = 'condition'"
             >
-              條件
+              求職條件
             </div>
             <div
               class="py-2 px-4 cursor-pointer"
@@ -978,7 +978,7 @@ const downloadQuestions = () => {
               "
               @click="activeTab = 'description'"
             >
-              敘述
+              職涯地圖
             </div>
             <div
               class="py-2 px-4 cursor-pointer"
@@ -989,7 +989,7 @@ const downloadQuestions = () => {
               "
               @click="activeTab = 'ai'"
             >
-              AI 檢測
+              AI 痕跡檢測
             </div>
           </div>
 
@@ -1007,43 +1007,73 @@ const downloadQuestions = () => {
             </div>
           </div>
 
-          <!-- 條件標籤內容 -->
+          <!-- 職缺條件標籤內容 -->
           <div class="mb-6" v-show="activeTab === 'condition'">
             <p class="text-14px leading-20px text-#555 mb-3">
-              您可以設定篩選條件，快速找到符合需求的人才。
+              求職條件與職缺條件比對結果。
             </p>
             <div class="bg-#F5F5F5 p-4 rounded-4px">
-              <p class="m-0 font-bold mb-2">教育程度</p>
-              <div class="flex flex-wrap gap-2 mb-4">
+              <div class="mb-4 flex w-full items-center">
+                <p class="m-0 font-bold mr-2 flex-shrink-0">希望職稱</p>
                 <div
-                  class="bg-white px-3 py-1 rounded-full border-1 border-solid border-#ddd"
+                  class="w-full border-1 border-solid border-red-500 flex items-center relative h-10"
                 >
-                  碩士以上
-                </div>
-                <div
-                  class="bg-white px-3 py-1 rounded-full border-1 border-solid border-#ddd"
-                >
-                  大學
-                </div>
-              </div>
-              <p class="m-0 font-bold mb-2">工作經驗</p>
-              <div class="flex flex-wrap gap-2">
-                <div
-                  class="bg-white px-3 py-1 rounded-full border-1 border-solid border-#ddd"
-                >
-                  3年以上
-                </div>
-                <div
-                  class="bg-white px-3 py-1 rounded-full border-1 border-solid border-#ddd"
-                >
-                  5年以上
-                </div>
-                <div
-                  class="bg-white px-3 py-1 rounded-full border-1 border-solid border-#ddd"
-                >
-                  10年以上
+                  <div class="absolute -top-3 left-4 px-2 text-sm bg-#F5F5F5">
+                    前端工程師
+                  </div>
+                  <div
+                    class="flex items-center justify-center w-full h-full bg-white"
+                  >
+                    後端工程師
+                  </div>
                 </div>
               </div>
+
+              <div class="mb-4">
+                <p class="m-0 font-bold mb-2">職類</p>
+                <div
+                  class="border-1 border-solid border-blue-500 flex items-center"
+                >
+                  <div class="p-2 text-left flex-1">軟體工程師</div>
+                  <div class="p-2 text-right flex-1">軟體工程師</div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <p class="m-0 font-bold mb-2">產業別</p>
+                <div
+                  class="border-1 border-solid border-blue-500 flex items-center"
+                >
+                  <div class="p-2 text-left flex-1">電腦軟體服務業</div>
+                  <div class="p-2 text-right flex-1">遊戲設計業</div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <p class="m-0 font-bold mb-2">職缺內容</p>
+                <div class="mb-2 flex items-center">
+                  <div class="w-16 mr-2">符合</div>
+                  <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                    前端效能、CI/CD
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-16 mr-2">未符合</div>
+                  <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                    RESTful API 串接、響應式、端對端測試
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-14px leading-20px text-#555">
+              <p class="m-0">
+                1. 求職者希望條件與本職位有落差，建議進一步確認求職者意願。
+              </p>
+              <p class="m-0">
+                2. 履歷表中缺少 RESTful API
+                串接、響應式佈局優化策略及端對端測試成效等必要技能，建議可以詢問是否有相關經驗。
+              </p>
             </div>
           </div>
 
@@ -1563,211 +1593,221 @@ const downloadQuestions = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <!-- 結束 v-show="activeTab === 'ai'" 區塊 -->
 
-            <!-- 問題引導區域 -->
+          <!-- 問題引導區域 -->
+          <div
+            v-if="showQuestionPrompt"
+            class="bg-#E6F7F8 p-6 rounded-8px mb-10 border-1 border-solid border-#eee shadow-md"
+          >
+            <div v-if="!isQuestionsLoading">
+              <p class="text-16px leading-24px mb-4">
+                我可以幫您總結提問求職者的方向，是否為您提供相關問題？
+              </p>
+              <div class="flex gap-4 justify-center">
+                <button
+                  class="py-2 px-6 bg-transparent border-1 border-solid border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors"
+                  @click="handleQuestionsRequest(false)"
+                >
+                  不需要
+                </button>
+                <button
+                  class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
+                  @click="handleQuestionsRequest(true)"
+                >
+                  需要
+                </button>
+              </div>
+            </div>
+            <!-- 不需要時的溫馨提示 -->
             <div
-              v-if="showQuestionPrompt"
-              class="bg-#E6F7F8 p-4 rounded-4px mb-8 border-1 border-solid border-#eee"
+              v-if="showDenyTip"
+              id="question-section"
+              class="mt-4 p-3 bg-#FFF8E1 text-#856404 rounded-4px text-14px"
             >
-              <div v-if="!isQuestionsLoading">
-                <p class="text-16px leading-24px mb-4">
-                  我可以幫您總結提問求職者的方向，是否為您提供相關問題？
-                </p>
-                <div class="flex gap-4 justify-center">
-                  <button
-                    class="py-2 px-6 bg-transparent border-1 border-solid border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors"
-                    @click="handleQuestionsRequest(false)"
-                  >
-                    不需要
-                  </button>
-                  <button
-                    class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
-                    @click="handleQuestionsRequest(true)"
-                  >
-                    需要
-                  </button>
-                </div>
-              </div>
-              <!-- 不需要時的溫馨提示 -->
+              <p class="m-0 text-start">
+                建議面試時能多了解候選人，提出具體問題以驗證履歷真實性
+              </p>
+            </div>
+            <!-- 需要時的載入動畫 -->
+            <div v-if="isQuestionsLoading" class="mt-4 text-center">
               <div
-                v-if="showDenyTip"
-                id="question-section"
-                class="mt-4 p-3 bg-#FFF8E1 text-#856404 rounded-4px text-14px"
+                class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
+              ></div>
+              <p class="text-14px text-#555 flex items-center justify-center">
+                <span class="mr-2">正在生成問題建議</span>
+                <span class="inline-flex">
+                  <span class="animate-pulse">.</span>
+                  <span class="animate-pulse" style="animation-delay: 0.2s"
+                    >.</span
+                  >
+                  <span class="animate-pulse" style="animation-delay: 0.4s"
+                    >.</span
+                  >
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- 面試建議問題 -->
+          <div
+            v-if="showQuestionGuide"
+            class="my-8 border-t-2 border-t-dashed border-#ddd"
+          ></div>
+
+          <div
+            v-if="showQuestionGuide"
+            class="bg-white p-5 rounded-8px mb-10 border-1 border-solid border-#e0e0e0 shadow-md"
+            ref="questionsRef"
+          >
+            <div
+              class="flex justify-between items-center cursor-pointer"
+              @click="toggleInterviewQuestions"
+            >
+              <h3 class="text-20px font-bold my-0 text-#00AFB8">
+                建議問題範本
+              </h3>
+              <div
+                class="transform transition-transform duration-300"
+                :class="isInterviewQuestionsExpanded ? 'rotate-180' : ''"
               >
-                <p class="m-0 text-start">
-                  建議面試時能多了解候選人，提出具體問題以驗證履歷真實性
-                </p>
-              </div>
-              <!-- 需要時的載入動畫 -->
-              <div v-if="isQuestionsLoading" class="mt-4 text-center">
-                <div
-                  class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
-                ></div>
-                <p class="text-14px text-#555 flex items-center justify-center">
-                  <span class="mr-2">正在生成問題建議</span>
-                  <span class="inline-flex">
-                    <span class="animate-pulse">.</span>
-                    <span class="animate-pulse" style="animation-delay: 0.2s"
-                      >.</span
-                    >
-                    <span class="animate-pulse" style="animation-delay: 0.4s"
-                      >.</span
-                    >
-                  </span>
-                </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
             </div>
 
-            <!-- 面試建議問題 -->
             <div
-              v-if="showQuestionGuide"
-              class="bg-#f8f8f8 p-4 rounded-4px mb-10"
-              ref="questionsRef"
+              class="interview-questions-container"
+              :class="{ expanded: isInterviewQuestionsExpanded }"
             >
-              <div
-                class="flex justify-between items-center cursor-pointer"
-                @click="toggleInterviewQuestions"
-              >
-                <h3 class="text-18px font-bold my-0">建議問題範本</h3>
-                <div
-                  class="transform transition-transform duration-300"
-                  :class="isInterviewQuestionsExpanded ? 'rotate-180' : ''"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+              <div class="interview-questions-content">
+                <template v-if="isInterviewQuestionsExpanded">
+                  <p class="text-16px leading-24px mb-4 text-#333 pb-2">
+                    以下是<span class="font-bold text-#00AFB8">面試前</span
+                    >可透過訊息向候選人詢問的文案，點擊下方區域可直接複製使用：
+                  </p>
+
+                  <div
+                    class="p-4 bg-#f9f9f9 rounded-8px mb-4 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f0f0f0 transition-colors shadow-sm"
+                    @click="
+                      copyToClipboard(
+                        '李先生您好，感謝您應徵我們的職位！\n\n我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：\n\n1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？\n\n2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？\n\n3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？\n\n感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。'
+                      )
+                    "
                   >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
-              </div>
-
-              <div
-                class="interview-questions-container"
-                :class="{ expanded: isInterviewQuestionsExpanded }"
-              >
-                <div class="interview-questions-content">
-                  <template v-if="isInterviewQuestionsExpanded">
-                    <p class="text-14px leading-22px mb-3">
-                      以下是面試前可透過訊息向候選人詢問的文案，可直接複製使用：
-                    </p>
-
                     <div
-                      class="p-3 bg-white rounded-4px mb-4 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
-                      @click="
-                        copyToClipboard(
-                          '李先生您好，感謝您應徵我們的職位！\n\n我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：\n\n1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？\n\n2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？\n\n3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？\n\n感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。'
-                        )
-                      "
+                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >
-                      <div
-                        class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#00AFB8"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#00AFB8"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <rect
-                            x="9"
-                            y="9"
-                            width="13"
-                            height="13"
-                            rx="2"
-                            ry="2"
-                          ></rect>
-                          <path
-                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                          ></path>
-                        </svg>
-                      </div>
-                      <p
-                        class="text-14px leading-22px pl-3 pr-3 border-l-2 border-transparent"
-                      >
-                        李先生您好，感謝您應徵我們的職位！
-                        <br /><br />
-                        我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：
-                        <br /><br />
-                        1.
-                        您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？
-                        <br /><br />
-                        2.
-                        您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？
-                        <br /><br />
-                        3.
-                        關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？
-                        <br /><br />
-                        感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。
-                      </p>
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        ></path>
+                      </svg>
                     </div>
-                    <!-- 添加按鈕區域 -->
-                    <div class="flex gap-4 justify-center mt-6">
-                      <button
-                        class="py-2 px-6 text-14px bg-transparent border-solid border-1 border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors flex items-center"
-                        @click="downloadQuestions"
+                    <p
+                      class="text-15px leading-24px pl-4 pr-4 border-l-2 border-transparent font-normal"
+                    >
+                      李先生您好，感謝您應徵我們的職位！
+                      <br /><br />
+                      我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：
+                      <br /><br />
+                      1.
+                      您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？
+                      <br /><br />
+                      2.
+                      您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？
+                      <br /><br />
+                      3.
+                      關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？
+                      <br /><br />
+                      感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。
+                    </p>
+                  </div>
+                  <!-- 添加按鈕區域 -->
+                  <div
+                    class="flex gap-4 justify-center mt-8 pt-4 border-t-1 border-#eee"
+                  >
+                    <button
+                      class="py-3 px-8 text-16px bg-transparent border-solid border-2 border-#00afb8 text-#00afb8 rounded-6px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors flex items-center font-bold"
+                      @click="downloadQuestions"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="mr-2"
-                        >
-                          <path
-                            d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-                          ></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        下載問題範本
-                      </button>
-                      <button
-                        class="py-2 px-6 text-14px bg-#00afb8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors flex items-center"
-                        @click="redirectToChat"
+                        <path
+                          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        ></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                      下載問題範本
+                    </button>
+                    <button
+                      class="py-3 px-8 text-16px bg-#00afb8 text-white border-none rounded-6px cursor-pointer hover:bg-#009199 transition-colors flex items-center font-bold shadow-md"
+                      @click="redirectToChat"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="mr-2"
-                        >
-                          <path
-                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
-                          ></path>
-                        </svg>
-                        問問求職者
-                      </button>
-                    </div>
-                  </template>
-                </div>
+                        <path
+                          d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                        ></path>
+                      </svg>
+                      問問求職者
+                    </button>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
-          <!-- 結束 v-show="activeTab === 'ai'" 區塊 -->
         </div>
       </div>
     </div>
