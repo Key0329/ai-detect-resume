@@ -910,9 +910,9 @@ const downloadQuestions = () => {
       <div
         class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
       >
-        <h2 class="text-20px font-bold m-0">AI 檢測結果</h2>
+        <h2 class="text-24px font-bold m-0">AI 檢測結果</h2>
         <button
-          class="text-24px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
+          class="text-28px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
           @click="closeAIDetectDrawer"
         >
           &times;
@@ -959,7 +959,7 @@ const downloadQuestions = () => {
           <!-- Tab 導航 -->
           <div class="flex mb-4 border-b-solid border-b-1px border-b-#eee">
             <div
-              class="py-2 px-4 cursor-pointer"
+              class="py-2 px-4 cursor-pointer text-16px"
               :class="
                 activeTab === 'condition'
                   ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -970,7 +970,7 @@ const downloadQuestions = () => {
               求職條件
             </div>
             <div
-              class="py-2 px-4 cursor-pointer"
+              class="py-2 px-4 cursor-pointer text-16px"
               :class="
                 activeTab === 'description'
                   ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -981,7 +981,7 @@ const downloadQuestions = () => {
               職涯地圖
             </div>
             <div
-              class="py-2 px-4 cursor-pointer"
+              class="py-2 px-4 cursor-pointer text-16px"
               :class="
                 activeTab === 'ai'
                   ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -1082,11 +1082,11 @@ const downloadQuestions = () => {
 
           <!-- AI 工具標題與介紹 -->
           <div class="mb-6" v-show="activeTab === 'ai'">
-            <p class="text-14px leading-20px text-#555 mb-3">
+            <p class="text-16px leading-24px text-#555 mb-3">
               此工具透過分析履歷文本特徵，協助識別可能由 AI 生成的內容。
             </p>
-            <div class="bg-#FFF8E1 p-3 rounded-4px text-14px text-#856404">
-              <p class="m-0 leading-20px">
+            <div class="bg-#FFF8E1 p-3 rounded-4px text-16px text-#856404">
+              <p class="m-0 leading-24px">
                 分析僅供參考，建議結合面試表現進行綜合評估。
                 <br />
                 點擊顏色區塊可查看原文。
@@ -1098,7 +1098,7 @@ const downloadQuestions = () => {
           <div v-show="activeTab === 'ai'">
             <!-- 卡片1：經歷跳躍或邏輯不通 -->
             <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-18px font-bold">經歷跳躍或邏輯不通</h3>
+              <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
               <div class="mb-2">
                 <div class="flex items-start mb-1">
                   <div class="w-full">
@@ -1112,7 +1112,7 @@ const downloadQuestions = () => {
                       "
                     >
                       <div
-                        class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <p class="m-0 flex items-center">
                           <span class="line-clamp-2 flex-1"
@@ -1121,8 +1121,8 @@ const downloadQuestions = () => {
                           >
                           <span class="click-hint ml-2 flex-shrink-0">
                             <svg
-                              width="16"
-                              height="16"
+                              width="18"
+                              height="18"
                               viewBox="0 0 24 24"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -1140,13 +1140,13 @@ const downloadQuestions = () => {
                       </div>
                     </div>
                     <div>
-                      <p class="text-14px leading-22px text-#555">
+                      <p class="text-16px leading-24px text-#555">
                         使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
                       </p>
                     </div>
                     <!-- 添加反饋按鈕 -->
                     <div class="flex justify-end mt-3 items-center">
-                      <span class="text-14px text-#7e7e7e mr-2"
+                      <span class="text-20px text-#7e7e7e mr-2"
                         >分析有用嗎？</span
                       >
                       <button
@@ -1157,7 +1157,7 @@ const downloadQuestions = () => {
                         <img
                           src="@/assets/images/icon_thumbs_up.svg"
                           alt="讚"
-                          class="w-5 h-5"
+                          class="w-6 h-6"
                         />
                       </button>
                       <button
@@ -1168,7 +1168,7 @@ const downloadQuestions = () => {
                         <img
                           src="@/assets/images/icon_thumbs_down.svg"
                           alt="倒讚"
-                          class="w-5 h-5"
+                          class="w-6 h-6"
                         />
                       </button>
                     </div>
@@ -1179,7 +1179,7 @@ const downloadQuestions = () => {
 
             <!-- 卡片2：堆砌熱門關鍵字但缺乏上下文 -->
             <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-18px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
+              <h3 class="text-20px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
               <div class="mb-2">
                 <div class="flex items-start mb-1">
                   <div class="w-full">
@@ -1188,7 +1188,7 @@ const downloadQuestions = () => {
                       @click="scrollToSection('skills-section', '高級程式設計')"
                     >
                       <div
-                        class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <p class="m-0 flex items-center">
                           <span class="line-clamp-2 flex-1"
@@ -1197,8 +1197,8 @@ const downloadQuestions = () => {
                           >
                           <span class="click-hint ml-2 flex-shrink-0">
                             <svg
-                              width="16"
-                              height="16"
+                              width="18"
+                              height="18"
                               viewBox="0 0 24 24"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -1225,7 +1225,7 @@ const downloadQuestions = () => {
                       "
                     >
                       <p
-                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <span class="line-clamp-2 flex-1">
                           系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
@@ -1233,8 +1233,8 @@ const downloadQuestions = () => {
                         </span>
                         <span class="click-hint ml-2">
                           <svg
-                            width="16"
-                            height="16"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1260,7 +1260,7 @@ const downloadQuestions = () => {
                       "
                     >
                       <p
-                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <span class="line-clamp-2 flex-1">
                           專案領導：帶領 10
@@ -1268,8 +1268,8 @@ const downloadQuestions = () => {
                         </span>
                         <span class="click-hint ml-2">
                           <svg
-                            width="16"
-                            height="16"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1286,13 +1286,13 @@ const downloadQuestions = () => {
                       </p>
                     </div>
                     <div>
-                      <p class="text-14px leading-22px text-#555">
+                      <p class="text-16px leading-24px text-#555">
                         羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
                       </p>
                     </div>
                     <!-- 添加反饋按鈕 -->
                     <div class="flex justify-end mt-3 items-center">
-                      <span class="text-14px text-#7e7e7e mr-2"
+                      <span class="text-20px text-#7e7e7e mr-2"
                         >分析有用嗎？</span
                       >
                       <button
@@ -1325,7 +1325,7 @@ const downloadQuestions = () => {
 
             <!-- 卡片3：敘述抽象、缺乏細節 -->
             <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-18px font-bold">敘述抽象、缺乏細節</h3>
+              <h3 class="text-20px font-bold">敘述抽象、缺乏細節</h3>
               <div class="mb-2">
                 <div class="flex items-start mb-1">
                   <div class="w-full">
@@ -1336,7 +1336,7 @@ const downloadQuestions = () => {
                       "
                     >
                       <div
-                        class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <p class="m-0 flex items-center">
                           <span class="line-clamp-2 flex-1"
@@ -1345,8 +1345,8 @@ const downloadQuestions = () => {
                           >
                           <span class="click-hint ml-2 flex-shrink-0">
                             <svg
-                              width="16"
-                              height="16"
+                              width="18"
+                              height="18"
                               viewBox="0 0 24 24"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -1373,7 +1373,7 @@ const downloadQuestions = () => {
                       "
                     >
                       <div
-                        class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <p class="m-0 flex items-center">
                           <span class="line-clamp-2 flex-1"
@@ -1382,8 +1382,8 @@ const downloadQuestions = () => {
                           >
                           <span class="click-hint ml-2 flex-shrink-0">
                             <svg
-                              width="16"
-                              height="16"
+                              width="18"
+                              height="18"
                               viewBox="0 0 24 24"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -1401,13 +1401,13 @@ const downloadQuestions = () => {
                       </div>
                     </div>
                     <div>
-                      <p class="text-14px leading-22px text-#555">
+                      <p class="text-16px leading-24px text-#555">
                         使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
                       </p>
                     </div>
                     <!-- 添加反饋按鈕 -->
                     <div class="flex justify-end mt-3 items-center">
-                      <span class="text-14px text-#7e7e7e mr-2"
+                      <span class="text-20px text-#7e7e7e mr-2"
                         >分析有用嗎？</span
                       >
                       <button
@@ -1440,7 +1440,7 @@ const downloadQuestions = () => {
 
             <!-- 卡片4：語言過於通用或制式 -->
             <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-24px font-bold">語言過於通用或制式</h3>
+              <h3 class="text-20px font-bold">語言過於通用或制式</h3>
               <div class="mb-2">
                 <div class="flex items-start mb-1">
                   <div class="w-full">
@@ -1454,15 +1454,15 @@ const downloadQuestions = () => {
                       "
                     >
                       <p
-                        class="text-18px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-20px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
-                        <span class="line-clamp-2 flex-1 leading-24px">
+                        <span class="line-clamp-2 flex-1 leading-28px">
                           本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
                         </span>
                         <span class="click-hint ml-2">
                           <svg
-                            width="16"
-                            height="16"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1479,13 +1479,13 @@ const downloadQuestions = () => {
                       </p>
                     </div>
                     <div>
-                      <p class="text-18px leading-22px text-#555">
+                      <p class="text-20px leading-24px text-#555">
                         使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
                       </p>
                     </div>
                     <!-- 添加反饋按鈕 -->
                     <div class="flex justify-end mt-3 items-center">
-                      <span class="text-14px text-#7e7e7e mr-2"
+                      <span class="text-20px text-#7e7e7e mr-2"
                         >分析有用嗎？</span
                       >
                       <button
@@ -1518,7 +1518,7 @@ const downloadQuestions = () => {
 
             <!-- 卡片5：語句與結構過度一致 -->
             <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-18px font-bold">語句與結構過度一致</h3>
+              <h3 class="text-20px font-bold">語句與結構過度一致</h3>
               <div class="mb-2">
                 <div class="flex items-start mb-1">
                   <div class="w-full">
@@ -1532,15 +1532,15 @@ const downloadQuestions = () => {
                       "
                     >
                       <p
-                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                       >
                         <span class="line-clamp-2 flex-1">
                           我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
                         </span>
                         <span class="click-hint ml-2">
                           <svg
-                            width="16"
-                            height="16"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1557,13 +1557,13 @@ const downloadQuestions = () => {
                       </p>
                     </div>
                     <div>
-                      <p class="text-14px leading-22px text-#555">
+                      <p class="text-16px leading-24px text-#555">
                         充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
                       </p>
                     </div>
                     <!-- 添加反饋按鈕 -->
                     <div class="flex justify-end mt-3 items-center">
-                      <span class="text-14px text-#7e7e7e mr-2"
+                      <span class="text-20px text-#7e7e7e mr-2"
                         >分析有用嗎？</span
                       >
                       <button
