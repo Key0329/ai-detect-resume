@@ -7,6 +7,14 @@ const isInterviewQuestionsExpanded = ref(false);
 const highlightedElement = ref(null);
 const isCopied = ref(false);
 
+// 新增狀態管理變數
+const showQuestionGuide = ref(false);
+const showQuestionPrompt = ref(true); // 新增控制問題提示區域顯示的變數
+const needQuestions = ref(false);
+const isQuestionsLoading = ref(false);
+const showDenyTip = ref(false);
+const questionsRef = ref(null); // 添加對問題區域的引用
+
 // 新增反饋狀態追蹤
 const feedbacks = ref({
   item1: { liked: false, disliked: false },
@@ -101,6 +109,38 @@ const scrollToSection = (sectionId, targetText) => {
 
     // 如果沒有找到匹配文本或沒有提供目標文字，則滾動到段落頂部
     section.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+// 新增處理問題請求的函數
+const handleQuestionsRequest = (need) => {
+  if (need) {
+    needQuestions.value = true;
+    isQuestionsLoading.value = true;
+    // 模擬載入時間
+    setTimeout(() => {
+      isQuestionsLoading.value = false;
+      showQuestionGuide.value = true;
+      isInterviewQuestionsExpanded.value = true;
+      showQuestionPrompt.value = false; // 隱藏問題提示區域
+
+      // 等待DOM更新後滾動到問題區塊
+      setTimeout(() => {
+        if (questionsRef.value) {
+          questionsRef.value.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+    }, 1500);
+  } else {
+    needQuestions.value = false;
+    showDenyTip.value = true;
+    // 3秒後隱藏提示
+    setTimeout(() => {
+      showDenyTip.value = false;
+    }, 3000);
   }
 };
 </script>
@@ -813,7 +853,7 @@ const scrollToSection = (sectionId, targetText) => {
       <div
         class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
       >
-        <h2 class="text-20px font-bold m-0">檢測結果</h2>
+        <h2 class="text-20px font-bold m-0">AI 檢測結果</h2>
         <button
           class="text-24px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
           @click="closeAIDetectDrawer"
@@ -859,6 +899,20 @@ const scrollToSection = (sectionId, targetText) => {
 
         <!-- 實際內容 -->
         <div v-else>
+          <!-- AI 工具標題與介紹 -->
+          <div class="mb-6">
+            <p class="text-14px leading-20px text-#555 mb-3">
+              此工具透過分析履歷文本特徵，協助識別可能由AI生成的內容。
+            </p>
+            <div class="bg-#FFF8E1 p-3 rounded-4px text-14px text-#856404">
+              <p class="m-0 leading-20px">
+                分析僅供參考，建議結合面試表現進行綜合評估。
+                <br />
+                點擊藍色區塊可查看原文。
+              </p>
+            </div>
+          </div>
+
           <!-- 分類卡片區域 -->
           <!-- 卡片1：經歷跳躍或邏輯不通 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
@@ -1213,8 +1267,52 @@ const scrollToSection = (sectionId, targetText) => {
             </div>
           </div>
 
+          <!-- 問題引導區域 -->
+          <div
+            v-if="showQuestionPrompt"
+            class="bg-white p-4 rounded-4px mb-6 border-1 border-solid border-#eee"
+          >
+            <p class="text-16px leading-24px mb-4">
+              以上是我的分析報告，我可以幫你產出提問求職者的方向，你是否需要相關問題？
+            </p>
+            <div class="flex gap-4 justify-center">
+              <button
+                class="py-2 px-6 bg-#eee border-none rounded-4px cursor-pointer hover:bg-#ddd transition-colors"
+                @click="handleQuestionsRequest(false)"
+              >
+                不需要
+              </button>
+              <button
+                class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
+                @click="handleQuestionsRequest(true)"
+              >
+                需要
+              </button>
+            </div>
+            <!-- 不需要時的溫馨提示 -->
+            <div
+              v-if="showDenyTip"
+              class="mt-4 p-3 bg-#E8F4FD text-#0366D6 rounded-4px text-14px"
+            >
+              <p class="m-0 text-center">
+                建議面試時能多了解候選人，提出具體問題以驗證履歷真實性
+              </p>
+            </div>
+            <!-- 需要時的載入動畫 -->
+            <div v-if="isQuestionsLoading" class="mt-4 text-center">
+              <div
+                class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
+              ></div>
+              <p class="text-14px text-#555 mt-2">正在生成問題建議...</p>
+            </div>
+          </div>
+
           <!-- 面試建議問題 -->
-          <div class="bg-#f8f8f8 p-4 rounded-4px mb-10">
+          <div
+            v-if="showQuestionGuide"
+            class="bg-#f8f8f8 p-4 rounded-4px mb-10"
+            ref="questionsRef"
+          >
             <div
               class="flex justify-between items-center cursor-pointer"
               @click="toggleInterviewQuestions"
@@ -1594,5 +1692,19 @@ const scrollToSection = (sectionId, targetText) => {
 /* 確保 hover 效果不影響已點擊的狀態 */
 .click-area:hover + div .circle-indicator:not(.filled) {
   background-color: rgba(0, 175, 184, 0.5); /* 半透明的懸停效果 */
+}
+
+/* 添加動畫 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 </style>
