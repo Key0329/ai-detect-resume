@@ -904,13 +904,13 @@ const downloadQuestions = () => {
 
     <!-- AI檢測 Side Drawer (無遮罩層) -->
     <div
-      class="side-drawer fixed top-0 right-0 h-full bg-white z-50 w-800px transform transition-transform duration-300 ease-in-out shadow-lg text-start"
+      class="side-drawer fixed top-0 right-0 h-full bg-#00afb8 z-50 w-800px transform transition-transform duration-300 ease-in-out shadow-lg text-start"
       :class="showAIDetectDrawer ? 'translate-x-0' : 'translate-x-full'"
     >
       <div
         class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
       >
-        <h2 class="text-24px font-bold m-0">AI 檢測結果</h2>
+        <h2 class="text-24px font-bold m-0 text-white">AI 檢測結果</h2>
         <button
           class="text-28px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
           @click="closeAIDetectDrawer"
@@ -949,177 +949,289 @@ const downloadQuestions = () => {
             <div class="skeleton-button"></div>
           </div>
 
-          <div class="skeleton-pulse text-center mt-4 text-#888 text-14px">
+          <div class="skeleton-pulse text-center mt-4 text-white text-14px">
             正在分析履歷內容...
           </div>
         </div>
 
         <!-- 實際內容 -->
         <div v-else>
-          <!-- Tab 導航 -->
-          <div class="flex mb-4 border-b-solid border-b-1px border-b-#eee">
-            <div
-              class="py-2 px-4 cursor-pointer text-16px"
-              :class="
-                activeTab === 'condition'
-                  ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
-                  : 'text-#555'
-              "
-              @click="activeTab = 'condition'"
-            >
-              求職條件
-            </div>
-            <div
-              class="py-2 px-4 cursor-pointer text-16px"
-              :class="
-                activeTab === 'description'
-                  ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
-                  : 'text-#555'
-              "
-              @click="activeTab = 'description'"
-            >
-              職涯地圖
-            </div>
-            <div
-              class="py-2 px-4 cursor-pointer text-16px"
-              :class="
-                activeTab === 'ai'
-                  ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
-                  : 'text-#555'
-              "
-              @click="activeTab = 'ai'"
-            >
-              AI 痕跡檢測
-            </div>
-          </div>
-
-          <!-- 職缺條件標籤內容 -->
-          <div class="mb-6" v-show="activeTab === 'condition'">
-            <!-- <p class="text-14px leading-20px text-#555 mb-3">
-              求職條件與職缺條件比對結果。
-            </p>
-            <div class="bg-#F5F5F5 p-4 rounded-4px">
-              <div class="mb-4 flex w-full items-center">
-                <p class="m-0 font-bold mr-2 flex-shrink-0">希望職稱</p>
-                <div
-                  class="w-full border-1 border-solid border-red-500 flex items-center relative h-10"
-                >
-                  <div class="absolute -top-3 left-4 px-2 text-sm bg-#F5F5F5">
-                    前端工程師
-                  </div>
-                  <div
-                    class="flex items-center justify-center w-full h-full bg-white"
-                  >
-                    後端工程師
-                  </div>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <p class="m-0 font-bold mb-2">職類</p>
-                <div
-                  class="border-1 border-solid border-blue-500 flex items-center"
-                >
-                  <div class="p-2 text-left flex-1">軟體工程師</div>
-                  <div class="p-2 text-right flex-1">軟體工程師</div>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <p class="m-0 font-bold mb-2">產業別</p>
-                <div
-                  class="border-1 border-solid border-blue-500 flex items-center"
-                >
-                  <div class="p-2 text-left flex-1">電腦軟體服務業</div>
-                  <div class="p-2 text-right flex-1">遊戲設計業</div>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <p class="m-0 font-bold mb-2">職缺內容</p>
-                <div class="mb-2 flex items-center">
-                  <div class="w-16 mr-2">符合</div>
-                  <div class="border-1 border-solid border-blue-500 p-2 flex-1">
-                    前端效能、CI/CD
-                  </div>
-                </div>
-                <div class="flex items-center">
-                  <div class="w-16 mr-2">未符合</div>
-                  <div class="border-1 border-solid border-blue-500 p-2 flex-1">
-                    RESTful API 串接、響應式、端對端測試
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-4 text-14px leading-20px text-#555">
-              <p class="m-0">
-                1. 求職者希望條件與本職位有落差，建議進一步確認求職者意願。
-              </p>
-              <p class="m-0">
-                2. 履歷表中缺少 RESTful API
-                串接、響應式佈局優化策略及端對端測試成效等必要技能，建議可以詢問是否有相關經驗。
-              </p>
-            </div> -->
-            <div class="w-720px mx-auto">
-              <img
-                src="@/assets/images/condition.jpg"
-                alt="職缺條件"
-                class="w-full object-cover"
-              />
-            </div>
-          </div>
-
-          <div class="mb-6" v-show="activeTab === 'description'">
-            <div class="w-500px mx-auto">
-              <img
-                src="@/assets/images/roadmap.png"
-                alt="職涯地圖"
-                class="w-full object-cover"
-              />
-            </div>
-          </div>
-
           <!-- AI 工具標題與介紹 -->
-          <div class="mb-6" v-show="activeTab === 'ai'">
-            <p class="text-16px leading-24px text-#555 mb-3">
-              此工具透過分析履歷文本特徵，協助識別可能由 AI 生成的內容。
+          <div class="mb-6">
+            <p class="text-16px leading-24px text-white mb-3">
+              此工具透過分析履歷文本特徵，協助產生履歷導覽。
             </p>
             <div class="bg-#FFF8E1 p-3 rounded-4px text-16px text-#856404">
               <p class="m-0 leading-24px">
                 分析僅供參考，建議結合面試表現進行綜合評估。
-                <br />
-                點擊顏色區塊可查看原文。
               </p>
             </div>
           </div>
+          <!-- 內文 -->
+          <div class="bg-white p-4 rounded-4px mb-10">
+            <div class="flex mb-4 border-b-solid border-b-1px border-b-#eee">
+              <div
+                class="py-2 px-4 cursor-pointer text-16px"
+                :class="
+                  activeTab === 'condition'
+                    ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
+                    : 'text-#555'
+                "
+                @click="activeTab = 'condition'"
+              >
+                求職條件
+              </div>
+              <div
+                class="py-2 px-4 cursor-pointer text-16px"
+                :class="
+                  activeTab === 'description'
+                    ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
+                    : 'text-#555'
+                "
+                @click="activeTab = 'description'"
+              >
+                學經歷地圖
+              </div>
+              <div
+                class="py-2 px-4 cursor-pointer text-16px"
+                :class="
+                  activeTab === 'ai'
+                    ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
+                    : 'text-#555'
+                "
+                @click="activeTab = 'ai'"
+              >
+                AI 痕跡檢測
+              </div>
+            </div>
 
-          <!-- 分類卡片區域 -->
-          <div v-show="activeTab === 'ai'">
-            <!-- 卡片1：經歷跳躍或邏輯不通 -->
-            <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
-              <div class="mb-2">
-                <div class="flex items-start mb-1">
-                  <div class="w-full">
+            <!-- 職缺條件標籤內容 -->
+            <div class="mb-6" v-show="activeTab === 'condition'">
+              <!-- <p class="text-14px leading-20px text-#555 mb-3">
+                求職條件與職缺條件比對結果。
+              </p>
+              <div class="bg-#F5F5F5 p-4 rounded-4px">
+                <div class="mb-4 flex w-full items-center">
+                  <p class="m-0 font-bold mr-2 flex-shrink-0">希望職稱</p>
+                  <div
+                    class="w-full border-1 border-solid border-red-500 flex items-center relative h-10"
+                  >
+                    <div class="absolute -top-3 left-4 px-2 text-sm bg-#F5F5F5">
+                      前端工程師
+                    </div>
                     <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'experience-section',
-                          '【數位轉型平台】成效'
-                        )
-                      "
+                      class="flex items-center justify-center w-full h-full bg-white"
                     >
+                      後端工程師
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="mb-4">
+                  <p class="m-0 font-bold mb-2">職類</p>
+                  <div
+                    class="border-1 border-solid border-blue-500 flex items-center"
+                  >
+                    <div class="p-2 text-left flex-1">軟體工程師</div>
+                    <div class="p-2 text-right flex-1">軟體工程師</div>
+                  </div>
+                </div>
+  
+                <div class="mb-4">
+                  <p class="m-0 font-bold mb-2">產業別</p>
+                  <div
+                    class="border-1 border-solid border-blue-500 flex items-center"
+                  >
+                    <div class="p-2 text-left flex-1">電腦軟體服務業</div>
+                    <div class="p-2 text-right flex-1">遊戲設計業</div>
+                  </div>
+                </div>
+  
+                <div class="mb-4">
+                  <p class="m-0 font-bold mb-2">職缺內容</p>
+                  <div class="mb-2 flex items-center">
+                    <div class="w-16 mr-2">符合</div>
+                    <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                      前端效能、CI/CD
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-16 mr-2">未符合</div>
+                    <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                      RESTful API 串接、響應式、端對端測試
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="mt-4 text-14px leading-20px text-#555">
+                <p class="m-0">
+                  1. 求職者希望條件與本職位有落差，建議進一步確認求職者意願。
+                </p>
+                <p class="m-0">
+                  2. 履歷表中缺少 RESTful API
+                  串接、響應式佈局優化策略及端對端測試成效等必要技能，建議可以詢問是否有相關經驗。
+                </p>
+              </div> -->
+              <div class="w-720px mx-auto">
+                <img
+                  src="@/assets/images/condition.jpg"
+                  alt="職缺條件"
+                  class="w-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6" v-show="activeTab === 'description'">
+              <div class="w-500px mx-auto">
+                <img
+                  src="@/assets/images/roadmap.png"
+                  alt="職涯地圖"
+                  class="w-full object-cover"
+                />
+              </div>
+            </div>
+
+            <!-- 分類卡片區域 -->
+            <div v-show="activeTab === 'ai'">
+              <!-- 卡片1：經歷跳躍或邏輯不通 -->
+              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+                <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
+                <div class="mb-2">
+                  <div class="flex items-start mb-1">
+                    <div class="w-full">
                       <div
-                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'experience-section',
+                            '【數位轉型平台】成效'
+                          )
+                        "
                       >
-                        <p class="m-0 flex items-center">
-                          <span class="line-clamp-2 flex-1"
-                            >【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低
-                            40% 運營成本，業績增長 15%。</span
-                          >
-                          <span class="click-hint ml-2 flex-shrink-0">
+                        <div
+                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <p class="m-0 flex items-center">
+                            <span class="line-clamp-2 flex-1"
+                              >【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低
+                              40% 運營成本，業績增長 15%。</span
+                            >
+                            <span class="click-hint ml-2 flex-shrink-0">
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 18L15 12L9 6"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-16px leading-24px text-#555">
+                          使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
+                        </p>
+                      </div>
+                      <!-- 添加反饋按鈕 -->
+                      <div class="flex justify-end mt-3 items-center">
+                        <span class="text-20px text-#7e7e7e mr-2"
+                          >分析有用嗎？</span
+                        >
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item1.liked }"
+                          @click="handleFeedback('item1', 'like')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_up.svg"
+                            alt="讚"
+                            class="w-6 h-6"
+                          />
+                        </button>
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item1.disliked }"
+                          @click="handleFeedback('item1', 'dislike')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_down.svg"
+                            alt="倒讚"
+                            class="w-6 h-6"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 卡片2：堆砌熱門關鍵字但缺乏上下文 -->
+              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+                <h3 class="text-20px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
+                <div class="mb-2">
+                  <div class="flex items-start mb-1">
+                    <div class="w-full">
+                      <div
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection('skills-section', '高級程式設計')
+                        "
+                      >
+                        <div
+                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <p class="m-0 flex items-center">
+                            <span class="line-clamp-2 flex-1"
+                              >高級程式設計：精通
+                              Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
+                            >
+                            <span class="click-hint ml-2 flex-shrink-0">
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 18L15 12L9 6"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'experience-section',
+                            '系統架構設計：主導企業級應用程式架構'
+                          )
+                        "
+                      >
+                        <p
+                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <span class="line-clamp-2 flex-1">
+                            系統架構設計：主導企業級應用程式架構，運用微服務與
+                            AWS 雲端技術，提升系統可擴展性 30%。
+                          </span>
+                          <span class="click-hint ml-2">
                             <svg
                               width="18"
                               height="18"
@@ -1138,64 +1250,23 @@ const downloadQuestions = () => {
                           </span>
                         </p>
                       </div>
-                    </div>
-                    <div>
-                      <p class="text-16px leading-24px text-#555">
-                        使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
-                      </p>
-                    </div>
-                    <!-- 添加反饋按鈕 -->
-                    <div class="flex justify-end mt-3 items-center">
-                      <span class="text-20px text-#7e7e7e mr-2"
-                        >分析有用嗎？</span
-                      >
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item1.liked }"
-                        @click="handleFeedback('item1', 'like')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_up.svg"
-                          alt="讚"
-                          class="w-6 h-6"
-                        />
-                      </button>
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item1.disliked }"
-                        @click="handleFeedback('item1', 'dislike')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_down.svg"
-                          alt="倒讚"
-                          class="w-6 h-6"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 卡片2：堆砌熱門關鍵字但缺乏上下文 -->
-            <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-20px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
-              <div class="mb-2">
-                <div class="flex items-start mb-1">
-                  <div class="w-full">
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="scrollToSection('skills-section', '高級程式設計')"
-                    >
                       <div
-                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'experience-section',
+                            '專案領導：帶領 10'
+                          )
+                        "
                       >
-                        <p class="m-0 flex items-center">
-                          <span class="line-clamp-2 flex-1"
-                            >高級程式設計：精通
-                            Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
-                          >
-                          <span class="click-hint ml-2 flex-shrink-0">
+                        <p
+                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <span class="line-clamp-2 flex-1">
+                            專案領導：帶領 10
+                            人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。
+                          </span>
+                          <span class="click-hint ml-2">
                             <svg
                               width="18"
                               height="18"
@@ -1214,136 +1285,181 @@ const downloadQuestions = () => {
                           </span>
                         </p>
                       </div>
-                    </div>
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'experience-section',
-                          '系統架構設計：主導企業級應用程式架構'
-                        )
-                      "
-                    >
-                      <p
-                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                      >
-                        <span class="line-clamp-2 flex-1">
-                          系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
-                          雲端技術，提升系統可擴展性 30%。
-                        </span>
-                        <span class="click-hint ml-2">
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9 18L15 12L9 6"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </p>
-                    </div>
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'experience-section',
-                          '專案領導：帶領 10'
-                        )
-                      "
-                    >
-                      <p
-                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                      >
-                        <span class="line-clamp-2 flex-1">
-                          專案領導：帶領 10
-                          人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。
-                        </span>
-                        <span class="click-hint ml-2">
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9 18L15 12L9 6"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </p>
-                    </div>
-                    <div>
-                      <p class="text-16px leading-24px text-#555">
-                        羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
-                      </p>
-                    </div>
-                    <!-- 添加反饋按鈕 -->
-                    <div class="flex justify-end mt-3 items-center">
-                      <span class="text-20px text-#7e7e7e mr-2"
-                        >分析有用嗎？</span
-                      >
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item2.liked }"
-                        @click="handleFeedback('item2', 'like')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_up.svg"
-                          alt="讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item2.disliked }"
-                        @click="handleFeedback('item2', 'dislike')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_down.svg"
-                          alt="倒讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
+                      <div>
+                        <p class="text-16px leading-24px text-#555">
+                          羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
+                        </p>
+                      </div>
+                      <!-- 添加反饋按鈕 -->
+                      <div class="flex justify-end mt-3 items-center">
+                        <span class="text-20px text-#7e7e7e mr-2"
+                          >分析有用嗎？</span
+                        >
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item2.liked }"
+                          @click="handleFeedback('item2', 'like')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_up.svg"
+                            alt="讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item2.disliked }"
+                          @click="handleFeedback('item2', 'dislike')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_down.svg"
+                            alt="倒讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- 卡片3：敘述抽象、缺乏細節 -->
-            <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-20px font-bold">敘述抽象、缺乏細節</h3>
-              <div class="mb-2">
-                <div class="flex items-start mb-1">
-                  <div class="w-full">
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection('skills-section', '雲端與 DevOps')
-                      "
-                    >
+              <!-- 卡片3：敘述抽象、缺乏細節 -->
+              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+                <h3 class="text-20px font-bold">敘述抽象、缺乏細節</h3>
+                <div class="mb-2">
+                  <div class="flex items-start mb-1">
+                    <div class="w-full">
                       <div
-                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection('skills-section', '雲端與 DevOps')
+                        "
                       >
-                        <p class="m-0 flex items-center">
-                          <span class="line-clamp-2 flex-1"
-                            >雲端與 DevOps：掌握
-                            AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
-                          >
-                          <span class="click-hint ml-2 flex-shrink-0">
+                        <div
+                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <p class="m-0 flex items-center">
+                            <span class="line-clamp-2 flex-1"
+                              >雲端與 DevOps：掌握
+                              AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
+                            >
+                            <span class="click-hint ml-2 flex-shrink-0">
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 18L15 12L9 6"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'experience-section',
+                            '效能優化：重構後端程式碼'
+                          )
+                        "
+                      >
+                        <div
+                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <p class="m-0 flex items-center">
+                            <span class="line-clamp-2 flex-1"
+                              >效能優化：重構後端程式碼，縮短 API 響應時間
+                              25%，顯著提升用戶滿意度。</span
+                            >
+                            <span class="click-hint ml-2 flex-shrink-0">
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 18L15 12L9 6"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-16px leading-24px text-#555">
+                          使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
+                        </p>
+                      </div>
+                      <!-- 添加反饋按鈕 -->
+                      <div class="flex justify-end mt-3 items-center">
+                        <span class="text-20px text-#7e7e7e mr-2"
+                          >分析有用嗎？</span
+                        >
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item3.liked }"
+                          @click="handleFeedback('item3', 'like')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_up.svg"
+                            alt="讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item3.disliked }"
+                          @click="handleFeedback('item3', 'dislike')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_down.svg"
+                            alt="倒讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 卡片4：語言過於通用或制式 -->
+              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+                <h3 class="text-20px font-bold">語言過於通用或制式</h3>
+                <div class="mb-2">
+                  <div class="flex items-start mb-1">
+                    <div class="w-full">
+                      <div
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'autobiography-section',
+                            '本人在資訊科技領域深耕逾十年'
+                          )
+                        "
+                      >
+                        <p
+                          class="text-20px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <span class="line-clamp-2 flex-1 leading-28px">
+                            本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
+                          </span>
+                          <span class="click-hint ml-2">
                             <svg
                               width="18"
                               height="18"
@@ -1362,25 +1478,66 @@ const downloadQuestions = () => {
                           </span>
                         </p>
                       </div>
+                      <div>
+                        <p class="text-20px leading-24px text-#555">
+                          使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
+                        </p>
+                      </div>
+                      <!-- 添加反饋按鈕 -->
+                      <div class="flex justify-end mt-3 items-center">
+                        <span class="text-20px text-#7e7e7e mr-2"
+                          >分析有用嗎？</span
+                        >
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item4.liked }"
+                          @click="handleFeedback('item4', 'like')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_up.svg"
+                            alt="讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item4.disliked }"
+                          @click="handleFeedback('item4', 'dislike')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_down.svg"
+                            alt="倒讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                      </div>
                     </div>
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'experience-section',
-                          '效能優化：重構後端程式碼'
-                        )
-                      "
-                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- 卡片5：語句與結構過度一致 -->
+              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+                <h3 class="text-20px font-bold">語句與結構過度一致</h3>
+                <div class="mb-2">
+                  <div class="flex items-start mb-1">
+                    <div class="w-full">
                       <div
-                        class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                        @click="
+                          scrollToSection(
+                            'autobiography-section',
+                            '我堅信技術創新與團隊協作是驅動成功的核心'
+                          )
+                        "
                       >
-                        <p class="m-0 flex items-center">
-                          <span class="line-clamp-2 flex-1"
-                            >效能優化：重構後端程式碼，縮短 API 響應時間
-                            25%，顯著提升用戶滿意度。</span
-                          >
-                          <span class="click-hint ml-2 flex-shrink-0">
+                        <p
+                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                        >
+                          <span class="line-clamp-2 flex-1">
+                            我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
+                          </span>
+                          <span class="click-hint ml-2">
                             <svg
                               width="18"
                               height="18"
@@ -1399,224 +1556,69 @@ const downloadQuestions = () => {
                           </span>
                         </p>
                       </div>
-                    </div>
-                    <div>
-                      <p class="text-16px leading-24px text-#555">
-                        使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
-                      </p>
-                    </div>
-                    <!-- 添加反饋按鈕 -->
-                    <div class="flex justify-end mt-3 items-center">
-                      <span class="text-20px text-#7e7e7e mr-2"
-                        >分析有用嗎？</span
-                      >
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item3.liked }"
-                        @click="handleFeedback('item3', 'like')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_up.svg"
-                          alt="讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item3.disliked }"
-                        @click="handleFeedback('item3', 'dislike')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_down.svg"
-                          alt="倒讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 卡片4：語言過於通用或制式 -->
-            <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-20px font-bold">語言過於通用或制式</h3>
-              <div class="mb-2">
-                <div class="flex items-start mb-1">
-                  <div class="w-full">
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'autobiography-section',
-                          '本人在資訊科技領域深耕逾十年'
-                        )
-                      "
-                    >
-                      <p
-                        class="text-20px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                      >
-                        <span class="line-clamp-2 flex-1 leading-28px">
-                          本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
-                        </span>
-                        <span class="click-hint ml-2">
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9 18L15 12L9 6"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </p>
-                    </div>
-                    <div>
-                      <p class="text-20px leading-24px text-#555">
-                        使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
-                      </p>
-                    </div>
-                    <!-- 添加反饋按鈕 -->
-                    <div class="flex justify-end mt-3 items-center">
-                      <span class="text-20px text-#7e7e7e mr-2"
-                        >分析有用嗎？</span
-                      >
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item4.liked }"
-                        @click="handleFeedback('item4', 'like')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_up.svg"
-                          alt="讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item4.disliked }"
-                        @click="handleFeedback('item4', 'dislike')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_down.svg"
-                          alt="倒讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
+                      <div>
+                        <p class="text-16px leading-24px text-#555">
+                          充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
+                        </p>
+                      </div>
+                      <!-- 添加反饋按鈕 -->
+                      <div class="flex justify-end mt-3 items-center">
+                        <span class="text-20px text-#7e7e7e mr-2"
+                          >分析有用嗎？</span
+                        >
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item5.liked }"
+                          @click="handleFeedback('item5', 'like')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_up.svg"
+                            alt="讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                        <button
+                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                          :class="{ 'bg-#E6F7F8': feedbacks.item5.disliked }"
+                          @click="handleFeedback('item5', 'dislike')"
+                        >
+                          <img
+                            src="@/assets/images/icon_thumbs_down.svg"
+                            alt="倒讚"
+                            class="w-5 h-5"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- 卡片5：語句與結構過度一致 -->
-            <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-              <h3 class="text-20px font-bold">語句與結構過度一致</h3>
-              <div class="mb-2">
-                <div class="flex items-start mb-1">
-                  <div class="w-full">
-                    <div
-                      class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                      @click="
-                        scrollToSection(
-                          'autobiography-section',
-                          '我堅信技術創新與團隊協作是驅動成功的核心'
-                        )
-                      "
-                    >
-                      <p
-                        class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                      >
-                        <span class="line-clamp-2 flex-1">
-                          我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
-                        </span>
-                        <span class="click-hint ml-2">
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9 18L15 12L9 6"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </p>
-                    </div>
-                    <div>
-                      <p class="text-16px leading-24px text-#555">
-                        充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
-                      </p>
-                    </div>
-                    <!-- 添加反饋按鈕 -->
-                    <div class="flex justify-end mt-3 items-center">
-                      <span class="text-20px text-#7e7e7e mr-2"
-                        >分析有用嗎？</span
-                      >
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item5.liked }"
-                        @click="handleFeedback('item5', 'like')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_up.svg"
-                          alt="讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                      <button
-                        class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                        :class="{ 'bg-#E6F7F8': feedbacks.item5.disliked }"
-                        @click="handleFeedback('item5', 'dislike')"
-                      >
-                        <img
-                          src="@/assets/images/icon_thumbs_down.svg"
-                          alt="倒讚"
-                          class="w-5 h-5"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- 結束 v-show="activeTab === 'ai'" 區塊 -->
+            <!-- Tab 導航 -->
           </div>
-          <!-- 結束 v-show="activeTab === 'ai'" 區塊 -->
 
           <!-- 問題引導區域 -->
           <div
             v-if="showQuestionPrompt"
-            class="bg-#E6F7F8 p-6 rounded-8px mb-10 border-1 border-solid border-#eee shadow-md"
+            class="bg-#f9f4ff p-6 rounded-8px mb-10 border-1 border-solid border-#eee shadow-md"
           >
             <div v-if="!isQuestionsLoading">
-              <p class="text-16px leading-24px mb-4">
+              <p class="text-16px leading-24px mb-4 text-center">
                 我可以幫您總結提問求職者的方向，是否為您提供相關問題？
               </p>
               <div class="flex gap-4 justify-center">
                 <button
-                  class="py-2 px-6 bg-transparent border-1 border-solid border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors"
-                  @click="handleQuestionsRequest(false)"
-                >
-                  不需要
-                </button>
-                <button
-                  class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
+                  class="py-2 px-6 bg-#6a3ea1 text-white border-none rounded-4px cursor-pointer hover:bg- transition-colors"
                   @click="handleQuestionsRequest(true)"
                 >
                   需要
+                </button>
+                <button
+                  class="py-2 px-6 bg-transparent border-1 border-solid border-#6a3ea1 text-#6a3ea1 rounded-4px cursor-pointer hover:bg-#6a3ea1 hover:text-white transition-colors"
+                  @click="handleQuestionsRequest(false)"
+                >
+                  不需要
                 </button>
               </div>
             </div>
@@ -1626,14 +1628,14 @@ const downloadQuestions = () => {
               id="question-section"
               class="mt-4 p-3 bg-#FFF8E1 text-#856404 rounded-4px text-14px"
             >
-              <p class="m-0 text-start">
+              <p class="m-0 text-center">
                 建議面試時能多了解候選人，提出具體問題以驗證履歷真實性
               </p>
             </div>
             <!-- 需要時的載入動畫 -->
             <div v-if="isQuestionsLoading" class="mt-4 text-center">
               <div
-                class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
+                class="inline-block w-6 h-6 border-2 border-t-#6a3ea1 border-r-#6a3ea1 border-b-transparent border-l-transparent rounded-full animate-spin"
               ></div>
               <p class="text-14px text-#555 flex items-center justify-center">
                 <span class="mr-2">正在生成問題建議</span>
@@ -1658,14 +1660,14 @@ const downloadQuestions = () => {
 
           <div
             v-if="showQuestionGuide"
-            class="bg-white p-5 rounded-8px mb-10 border-1 border-solid border-#e0e0e0 shadow-md"
+            class="bg-#f9f4ff p-5 rounded-8px mb-10 border-1 border-solid border-#e0e0e0 shadow-md"
             ref="questionsRef"
           >
             <div
               class="flex justify-between items-center cursor-pointer"
               @click="toggleInterviewQuestions"
             >
-              <h3 class="text-20px font-bold my-0 text-#00AFB8">
+              <h3 class="text-20px font-bold my-0 text-#6a3ea1">
                 建議問題範本
               </h3>
               <div
@@ -1691,19 +1693,20 @@ const downloadQuestions = () => {
             <div
               class="interview-questions-container"
               :class="{ expanded: isInterviewQuestionsExpanded }"
+              style="background-color: #f9f4ff"
             >
               <div class="interview-questions-content">
                 <template v-if="isInterviewQuestionsExpanded">
                   <p class="text-16px leading-24px mb-4 text-#333 pb-2">
-                    以下是<span class="font-bold text-#00AFB8">面試前</span
+                    以下是<span class="font-bold text-#6a3ea1">面試前</span
                     >可透過訊息向候選人詢問的文案，點擊下方區域可直接複製使用：
                   </p>
 
                   <div
-                    class="p-4 bg-#f9f9f9 rounded-8px mb-4 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f0f0f0 transition-colors shadow-sm"
+                    class="p-4 bg-#f4eff9 rounded-8px mb-4 border-l-4 border-l-#6a3ea1 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
                     @click="
                       copyToClipboard(
-                        '李先生您好，感謝您應徵我們的職位！\n\n我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：\n\n1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？\n\n2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？\n\n3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？\n\n感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。'
+                        '李先生您好，感謝您應徵我們的職位！\n\n我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：\n\n1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能非簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？\n\n2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？\n\n3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？\n\n感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。'
                       )
                     "
                   >
@@ -1758,7 +1761,29 @@ const downloadQuestions = () => {
                     class="flex gap-4 justify-center mt-8 pt-4 border-t-1 border-#eee"
                   >
                     <button
-                      class="py-3 px-8 text-16px bg-transparent border-solid border-2 border-#00afb8 text-#00afb8 rounded-6px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors flex items-center font-bold"
+                      class="py-3 px-8 text-16px bg-#6a3ea1 text-white border-none rounded-6px cursor-pointer hover:bg-#522e80 transition-colors flex items-center font-bold shadow-md"
+                      @click="redirectToChat"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
+                      >
+                        <path
+                          d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                        ></path>
+                      </svg>
+                      問問求職者
+                    </button>
+                    <button
+                      class="py-3 px-8 text-16px bg-transparent border-solid border-2 border-#6a3ea1 text-#6a3ea1 rounded-6px cursor-pointer hover:bg-#6a3ea1 hover:text-white transition-colors flex items-center font-bold"
                       @click="downloadQuestions"
                     >
                       <svg
@@ -1780,28 +1805,6 @@ const downloadQuestions = () => {
                         <line x1="12" y1="15" x2="12" y2="3"></line>
                       </svg>
                       下載問題範本
-                    </button>
-                    <button
-                      class="py-3 px-8 text-16px bg-#00afb8 text-white border-none rounded-6px cursor-pointer hover:bg-#009199 transition-colors flex items-center font-bold shadow-md"
-                      @click="redirectToChat"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="mr-2"
-                      >
-                        <path
-                          d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
-                        ></path>
-                      </svg>
-                      問問求職者
                     </button>
                   </div>
                 </template>
