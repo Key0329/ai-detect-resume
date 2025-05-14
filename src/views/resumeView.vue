@@ -859,221 +859,15 @@ const scrollToSection = (sectionId, targetText) => {
 
         <!-- 實際內容 -->
         <div v-else>
-          <!-- <p class="text-16px leading-24px mb-4 text-start mt-0">
-            查看並點擊相應錨點跳轉到履歷上的對應段落。
-          </p> -->
-
-          <!-- 錨點導航按鈕 -->
-          <!-- <div class="mb-6 flex flex-wrap gap-2">
-            <button
-              @click="scrollToSection('education-section')"
-              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
-            >
-              教育背景
-            </button>
-            <button
-              @click="scrollToSection('skills-section')"
-              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
-            >
-              專業技能
-            </button>
-            <button
-              @click="scrollToSection('experience-section')"
-              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
-            >
-              工作經驗
-            </button>
-            <button
-              @click="scrollToSection('job-requirements-section')"
-              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
-            >
-              求職條件
-            </button>
-            <button
-              @click="scrollToSection('autobiography-section')"
-              class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
-            >
-              自傳
-            </button>
-          </div> -->
-
-          <!-- 整合後的分析區塊 -->
+          <!-- 分類卡片區域 -->
+          <!-- 卡片1：經歷跳躍或邏輯不通 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-            <h3 class="text-18px font-bold">建議關注內容</h3>
+            <h3 class="text-18px font-bold">經歷跳躍或邏輯不通</h3>
             <div class="mb-2">
               <div class="flex items-start mb-1">
-                <span class="font-bold">1.</span>
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'autobiography-section',
-                        '我堅信技術創新與團隊協作是驅動成功的核心'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
-                  </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：自傳中出現大量套話與形容詞，如「堅信」「積極」「卓越」等，缺乏個人獨特經歷或具體案例佐證，語調過於制式。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item3', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item3.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item3.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item3', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item3.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item3.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">2.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'autobiography-section',
-                        '本人在資訊科技領域深耕逾十年'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_location_marker.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
-                  </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：使用「深耕逾十年」「奠定堅實的技術基礎」等過於正式與通用的措辭，缺乏個人真實經歷描述，呈現AI生成的特徵。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item4', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item4.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item4.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item4', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item4.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item4.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">3.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'experience-section',
@@ -1081,84 +875,84 @@ const scrollToSection = (sectionId, targetText) => {
                       )
                     "
                   >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                    <div
+                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
                     >
-                      【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低 40%
-                      運營成本，業績增長 15%。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_location_marker.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+                      <p class="m-0 flex items-center">
+                        <span class="line-clamp-2 flex-1"
+                          >【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低
+                          40% 運營成本，業績增長 15%。</span
+                        >
+                        <span class="click-hint ml-2 flex-shrink-0">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9 18L15 12L9 6"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                   <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：使用精確數字（40%、15%）誇大專案成果，但缺乏具體細節說明，顯得公式化，是AI生成內容的典型特徵。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item5', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item5.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item5.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item5', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item5.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item5.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
+                    <p class="text-14px leading-22px text-#555">
+                      使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
+          <!-- 卡片2：堆砌熱門關鍵字但缺乏上下文 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
             <div class="mb-2">
               <div class="flex items-start mb-1">
-                <span class="font-bold">4.</span>
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="scrollToSection('skills-section', '高級程式設計')"
+                  >
+                    <div
+                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                    >
+                      <p class="m-0 flex items-center">
+                        <span class="line-clamp-2 flex-1"
+                          >高級程式設計：精通
+                          Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
+                        >
+                        <span class="click-hint ml-2 flex-shrink-0">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9 18L15 12L9 6"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'experience-section',
@@ -1167,151 +961,66 @@ const scrollToSection = (sectionId, targetText) => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
                     >
-                      系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
-                      雲端技術，提升系統可擴展性 30%。
+                      <span class="line-clamp-2 flex-1">
+                        系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
+                        雲端技術，提升系統可擴展性 30%。
+                      </span>
                       <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_location_marker.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
-                  </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：敘述過於制式化且使用通用詞彙，缺乏具體說明如何運用微服務架構及實際提升可擴展性的方法和過程。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item1', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item1.liked }"
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item1.liked ? '#4CAF50' : 'currentColor'
-                            "
+                          <path
+                            d="M9 18L15 12L9 6"
+                            stroke="currentColor"
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                          >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item1', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item1.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item1.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
+                          />
+                        </svg>
                       </span>
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">5.</span>
-                <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="scrollToSection('skills-section', '高級程式設計')"
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="
+                      scrollToSection('experience-section', '專案領導：帶領 10')
+                    "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
                     >
-                      高級程式設計：精通
-                      Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。
+                      <span class="line-clamp-2 flex-1">
+                        專案領導：帶領 10
+                        人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。
+                      </span>
                       <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_location_marker.svg"
-                          alt="定位指示器"
-                        />
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 18L15 12L9 6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </p>
                   </div>
                   <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：堆砌多種技術關鍵字但未提及實際應用場景，「精通」、「高效能系統建構」等表述過於抽象，缺乏可驗證的專案實例。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item2', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item2.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item2.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item2', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item2.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item2.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
+                    <p class="text-14px leading-22px text-#555">
+                      羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
                     </p>
                   </div>
                 </div>
@@ -1319,47 +1028,191 @@ const scrollToSection = (sectionId, targetText) => {
             </div>
           </div>
 
+          <!-- 卡片3：敘述抽象、缺乏細節 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-            <h3 class="text-18px font-bold">整體分析</h3>
-            <ul class="pl-4 text-14px leading-22px text-#555 mt-3 mb-2">
-              <li class="mb-2">
-                <p class="font-bold m-0">重複性修辭：</p>
-                <p class="m-0 mt-1">
-                  多次強調「高效」「創新」「團隊協作」等概念，缺乏個性化細節與具體案例，表現出AI生成的重複模式。
-                </p>
-              </li>
-              <li class="mb-2">
-                <p class="font-bold m-0">過於正式的語氣：</p>
-                <p class="m-0 mt-1">
-                  使用如「深耕逾十年」「奠定堅實的技術基礎」「卓越的執行力」等誇張且通用的措辭，缺乏真實的個人風格。
-                </p>
-              </li>
-              <li class="mb-2">
-                <p class="font-bold m-0">通用化描述：</p>
-                <p class="m-0 mt-1">
-                  自傳與工作經驗使用廣泛適用的陳述，如「將複雜需求轉化為高效解決方案」「期盼貢獻專業技能」，是AI常見的生成模式。
-                </p>
-              </li>
-              <li class="mb-2">
-                <p class="font-bold m-0">技術描述浮泛：</p>
-                <p class="m-0 mt-1">
-                  列舉大量技術關鍵字（Python、AWS、Docker等），但缺乏對技術掌握程度的細微差別描述與應用場景。
-                </p>
-              </li>
-              <li class="mb-2">
-                <p class="font-bold m-0">時間線矛盾：</p>
-                <p class="m-0 mt-1">
-                  聲稱有10-11年工作經驗，但所列職位時間總和與學歷期間存在重疊，在時間線上難以自圓其說。
-                </p>
-              </li>
-              <li class="mb-2">
-                <p class="font-bold m-0">數據使用異常：</p>
-                <p class="m-0 mt-1">
-                  多處使用精確數字（30%、40%、35%、90%），但未提供背景與計算方法，過於整齊的數據模式不符合實際專案的複雜性。
-                </p>
-              </li>
-            </ul>
+            <h3 class="text-18px font-bold">敘述抽象、缺乏細節</h3>
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <div class="w-full">
+                  <div
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="scrollToSection('skills-section', '雲端與 DevOps')"
+                  >
+                    <div
+                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                    >
+                      <p class="m-0 flex items-center">
+                        <span class="line-clamp-2 flex-1"
+                          >雲端與 DevOps：掌握
+                          AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
+                        >
+                        <span class="click-hint ml-2 flex-shrink-0">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9 18L15 12L9 6"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="
+                      scrollToSection(
+                        'experience-section',
+                        '效能優化：重構後端程式碼'
+                      )
+                    "
+                  >
+                    <div
+                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                    >
+                      <p class="m-0 flex items-center">
+                        <span class="line-clamp-2 flex-1"
+                          >效能優化：重構後端程式碼，縮短 API 響應時間
+                          25%，顯著提升用戶滿意度。</span
+                        >
+                        <span class="click-hint ml-2 flex-shrink-0">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9 18L15 12L9 6"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-14px leading-22px text-#555">
+                      使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- 卡片4：語言過於通用或制式 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold">語言過於通用或制式</h3>
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <div class="w-full">
+                  <div
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="
+                      scrollToSection(
+                        'autobiography-section',
+                        '本人在資訊科技領域深耕逾十年'
+                      )
+                    "
+                  >
+                    <p
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                    >
+                      <span class="line-clamp-2 flex-1">
+                        本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
+                      </span>
+                      <span class="click-hint ml-2">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 18L15 12L9 6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-14px leading-22px text-#555">
+                      使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 卡片5：語句與結構過度一致 -->
+          <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+            <h3 class="text-18px font-bold">語句與結構過度一致</h3>
+            <div class="mb-2">
+              <div class="flex items-start mb-1">
+                <div class="w-full">
+                  <div
+                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    @click="
+                      scrollToSection(
+                        'autobiography-section',
+                        '我堅信技術創新與團隊協作是驅動成功的核心'
+                      )
+                    "
+                  >
+                    <p
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                    >
+                      <span class="line-clamp-2 flex-1">
+                        我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
+                      </span>
+                      <span class="click-hint ml-2">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 18L15 12L9 6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-14px leading-22px text-#555">
+                      充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- 面試建議問題 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-10">
             <div
