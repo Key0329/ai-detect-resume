@@ -143,6 +143,41 @@ const handleQuestionsRequest = (need) => {
     }, 3000);
   }
 };
+
+// 問問求職者功能 - 跳轉到外部頁面
+const redirectToChat = () => {
+  window.open("https://example.com/chat", "_blank");
+};
+
+// 下載提問建議功能
+const downloadQuestions = () => {
+  // 獲取問題文本
+  const questions = [
+    "您提到在ABC科技時提升系統可擴展性30%，能否詳細說明當時的系統架構是什麼，面臨哪些具體挑戰，以及您如何量化這個改善效果？",
+    "您履歷上列出多種技術能力，包括React、Node.js、AWS等，能否舉一個您最熟悉的技術棧，並分享一個您運用它克服的最困難技術問題？",
+    "關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？",
+  ];
+
+  // 創建文本內容，包含標題和提問
+  const content = `# 面試提問建議\n\n${questions.map((q, i) => `${i + 1}. ${q}`).join("\n\n")}`;
+
+  // 創建Blob對象
+  const blob = new Blob([content], { type: "text/plain" });
+
+  // 創建URL
+  const url = URL.createObjectURL(blob);
+
+  // 創建臨時連結並模擬點擊下載
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "面試提問建議.txt";
+  document.body.appendChild(link);
+  link.click();
+
+  // 清理
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
 </script>
 <template>
   <div class="resume bg-#f3f3f3">
@@ -921,7 +956,7 @@ const handleQuestionsRequest = (need) => {
               <div class="flex items-start mb-1">
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'experience-section',
@@ -930,7 +965,7 @@ const handleQuestionsRequest = (need) => {
                     "
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -974,11 +1009,11 @@ const handleQuestionsRequest = (need) => {
               <div class="flex items-start mb-1">
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="scrollToSection('skills-section', '高級程式設計')"
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1006,7 +1041,7 @@ const handleQuestionsRequest = (need) => {
                     </div>
                   </div>
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'experience-section',
@@ -1015,7 +1050,7 @@ const handleQuestionsRequest = (need) => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <span class="line-clamp-2 flex-1">
                         系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
@@ -1041,13 +1076,13 @@ const handleQuestionsRequest = (need) => {
                     </p>
                   </div>
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection('experience-section', '專案領導：帶領 10')
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <span class="line-clamp-2 flex-1">
                         專案領導：帶領 10
@@ -1089,11 +1124,11 @@ const handleQuestionsRequest = (need) => {
               <div class="flex items-start mb-1">
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="scrollToSection('skills-section', '雲端與 DevOps')"
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1121,7 +1156,7 @@ const handleQuestionsRequest = (need) => {
                     </div>
                   </div>
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'experience-section',
@@ -1130,7 +1165,7 @@ const handleQuestionsRequest = (need) => {
                     "
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1174,7 +1209,7 @@ const handleQuestionsRequest = (need) => {
               <div class="flex items-start mb-1">
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'autobiography-section',
@@ -1183,7 +1218,7 @@ const handleQuestionsRequest = (need) => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <span class="line-clamp-2 flex-1">
                         本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
@@ -1224,7 +1259,7 @@ const handleQuestionsRequest = (need) => {
               <div class="flex items-start mb-1">
                 <div class="w-full">
                   <div
-                    class="border-l-4 border-l-#1654B9 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
+                    class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
                     @click="
                       scrollToSection(
                         'autobiography-section',
@@ -1233,7 +1268,7 @@ const handleQuestionsRequest = (need) => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#1654B9 bg-#E6EFFF p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
                     >
                       <span class="line-clamp-2 flex-1">
                         我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
@@ -1441,7 +1476,7 @@ const handleQuestionsRequest = (need) => {
                   </div>
 
                   <div
-                    class="p-3 bg-white rounded-4px border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
+                    class="p-3 bg-white rounded-4px mb-4 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
                     @click="
                       copyToClipboard(
                         '關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？'
@@ -1483,6 +1518,55 @@ const handleQuestionsRequest = (need) => {
                     >
                       "關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？"
                     </p>
+                  </div>
+                  <!-- 添加按鈕區域 -->
+                  <div class="flex gap-4 justify-center mt-6">
+                    <button
+                      class="py-2 px-6 text-14px bg-transparent border-solid border-1 border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors flex items-center"
+                      @click="downloadQuestions"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
+                      >
+                        <path
+                          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        ></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                      下載提問建議
+                    </button>
+                    <button
+                      class="py-2 px-6 text-14px bg-#00afb8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors flex items-center"
+                      @click="redirectToChat"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
+                      >
+                        <path
+                          d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                        ></path>
+                      </svg>
+                      問問求職者
+                    </button>
                   </div>
                 </template>
               </div>
