@@ -971,7 +971,7 @@ const downloadQuestions = () => {
           <div class="bg-white p-4 rounded-4px mb-10">
             <div class="flex mb-4 border-b-solid border-b-1px border-b-#eee">
               <div
-                class="py-2 px-4 cursor-pointer text-16px"
+                class="py-2 px-4 cursor-pointer text-18px"
                 :class="
                   activeTab === 'condition'
                     ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -979,10 +979,10 @@ const downloadQuestions = () => {
                 "
                 @click="activeTab = 'condition'"
               >
-                求職條件
+                職缺條件
               </div>
               <div
-                class="py-2 px-4 cursor-pointer text-16px"
+                class="py-2 px-4 cursor-pointer text-18px"
                 :class="
                   activeTab === 'description'
                     ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -993,7 +993,7 @@ const downloadQuestions = () => {
                 學經歷地圖
               </div>
               <div
-                class="py-2 px-4 cursor-pointer text-16px"
+                class="py-2 px-4 cursor-pointer text-18px"
                 :class="
                   activeTab === 'ai'
                     ? 'text-#00afb8 border-b-solid border-b-2 border-b-#00afb8'
@@ -1007,64 +1007,78 @@ const downloadQuestions = () => {
 
             <!-- 職缺條件標籤內容 -->
             <div class="mb-6" v-show="activeTab === 'condition'">
-              <!-- <p class="text-14px leading-20px text-#555 mb-3">
+              <p class="text-16px leading-24px text-#555 mb-3">
                 求職條件與職缺條件比對結果。
               </p>
               <div class="bg-#F5F5F5 p-4 rounded-4px">
                 <div class="mb-4 flex w-full items-center">
-                  <p class="m-0 font-bold mr-2 flex-shrink-0">希望職稱</p>
+                  <p class="m-0 font-bold mr-2 flex-shrink-0 text-16px">
+                    希望職稱
+                  </p>
                   <div
                     class="w-full border-1 border-solid border-red-500 flex items-center relative h-10"
                   >
-                    <div class="absolute -top-3 left-4 px-2 text-sm bg-#F5F5F5">
+                    <div
+                      class="absolute -top-3 left-4 px-2 text-16px bg-#F5F5F5"
+                    >
                       前端工程師
                     </div>
                     <div
-                      class="flex items-center justify-center w-full h-full bg-white"
+                      class="flex items-center justify-center w-full h-full bg-white text-16px"
                     >
                       後端工程師
                     </div>
                   </div>
                 </div>
-  
+
                 <div class="mb-4">
-                  <p class="m-0 font-bold mb-2">職類</p>
+                  <p class="m-0 font-bold mb-2 text-16px">職類</p>
                   <div
                     class="border-1 border-solid border-blue-500 flex items-center"
                   >
-                    <div class="p-2 text-left flex-1">軟體工程師</div>
-                    <div class="p-2 text-right flex-1">軟體工程師</div>
+                    <div class="p-2 text-left flex-1 text-16px">軟體工程師</div>
+                    <div class="p-2 text-right flex-1 text-16px">
+                      軟體工程師
+                    </div>
                   </div>
                 </div>
-  
+
                 <div class="mb-4">
-                  <p class="m-0 font-bold mb-2">產業別</p>
+                  <p class="m-0 font-bold mb-2 text-16px">產業別</p>
                   <div
                     class="border-1 border-solid border-blue-500 flex items-center"
                   >
-                    <div class="p-2 text-left flex-1">電腦軟體服務業</div>
-                    <div class="p-2 text-right flex-1">遊戲設計業</div>
+                    <div class="p-2 text-left flex-1 text-16px">
+                      電腦軟體服務業
+                    </div>
+                    <div class="p-2 text-right flex-1 text-16px">
+                      遊戲設計業
+                    </div>
                   </div>
                 </div>
-  
+
                 <div class="mb-4">
-                  <p class="m-0 font-bold mb-2">職缺內容</p>
+                  <p class="m-0 font-bold mb-2 text-16px">職缺內容</p>
                   <div class="mb-2 flex items-center">
-                    <div class="w-16 mr-2">符合</div>
-                    <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                    <div class="w-16 mr-2 text-16px">符合</div>
+                    <div
+                      class="border-1 border-solid border-blue-500 p-2 flex-1 text-16px"
+                    >
                       前端效能、CI/CD
                     </div>
                   </div>
                   <div class="flex items-center">
-                    <div class="w-16 mr-2">未符合</div>
-                    <div class="border-1 border-solid border-blue-500 p-2 flex-1">
+                    <div class="w-16 mr-2 text-16px">未符合</div>
+                    <div
+                      class="border-1 border-solid border-blue-500 p-2 flex-1 text-16px"
+                    >
                       RESTful API 串接、響應式、端對端測試
                     </div>
                   </div>
                 </div>
               </div>
-  
-              <div class="mt-4 text-14px leading-20px text-#555">
+
+              <div class="mt-4 text-16px leading-24px text-#555">
                 <p class="m-0">
                   1. 求職者希望條件與本職位有落差，建議進一步確認求職者意願。
                 </p>
@@ -1072,13 +1086,6 @@ const downloadQuestions = () => {
                   2. 履歷表中缺少 RESTful API
                   串接、響應式佈局優化策略及端對端測試成效等必要技能，建議可以詢問是否有相關經驗。
                 </p>
-              </div> -->
-              <div class="w-720px mx-auto">
-                <img
-                  src="@/assets/images/condition.jpg"
-                  alt="職缺條件"
-                  class="w-full object-cover"
-                />
               </div>
             </div>
 
@@ -1095,80 +1102,108 @@ const downloadQuestions = () => {
             <!-- 分類卡片區域 -->
             <div v-show="activeTab === 'ai'">
               <!-- 卡片1：經歷跳躍或邏輯不通 -->
-              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
+              <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
                 <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'experience-section',
-                            '【數位轉型平台】成效'
-                          )
-                        "
-                      >
-                        <div
-                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <p class="m-0 flex items-center">
-                            <span class="line-clamp-2 flex-1"
-                              >【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低
-                              40% 運營成本，業績增長 15%。</span
-                            >
-                            <span class="click-hint ml-2 flex-shrink-0">
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M9 18L15 12L9 6"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
+                      <!-- 結束修改部分 -->
                       <div>
-                        <p class="text-16px leading-24px text-#555">
+                        <p class="text-16px leading-24px text-#555 mt-0">
                           使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
                         </p>
                       </div>
-                      <!-- 添加反饋按鈕 -->
-                      <div class="flex justify-end mt-3 items-center">
-                        <span class="text-20px text-#7e7e7e mr-2"
-                          >分析有用嗎？</span
+                      <!-- 修改的部分：新的連結框 -->
+                      <div
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3"
+                      >
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                          @click="
+                            scrollToSection(
+                              'experience-section',
+                              '【數位轉型平台】成效'
+                            )
+                          "
                         >
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item1.liked }"
-                          @click="handleFeedback('item1', 'like')"
+                          <span class="text-14px text-#00afb8 font-bold"
+                            >【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低
+                            40% 運營成本，業績增長 15%。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="text-16px leading-24px text-#555 mt-0">
+                        建議提問：
+                        <div
+                          class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
+                          @click="
+                            copyToClipboard(
+                              '面試提問建議：\n\n1. 關於數據準確性：\n- 請詳細說明您是如何計算系統可擴展性提升30%的？使用了哪些具體指標？\n- 您提到降低了40%運營成本，能否分享這個數據的計算基礎和具體實施的優化措施？\n- 業績增長15%是基於哪些銷售數據或市場表現？這與您的技術貢獻有何直接關聯？\n\n2. 關於時間線核對：\n- 請確認一下您在XYZ公司的確切在職時間，以及與ABC科技的工作是否有重疊？\n- 我注意到您的碩士學位與第一份全職工作在時間上似乎有些重疊，能否說明您是如何兼顧的？'
+                            )
+                          "
                         >
-                          <img
-                            src="@/assets/images/icon_thumbs_up.svg"
-                            alt="讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item1.disliked }"
-                          @click="handleFeedback('item1', 'dislike')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_down.svg"
-                            alt="倒讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
+                          <div
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#00AFB8"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
+                              <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
+                            </svg>
+                          </div>
+                          <div class="font-normal">
+                            <p class="font-bold mb-3">
+                              1. 請求職者提供更多詳細的數據：
+                            </p>
+                            <ul class="pl-6 mt-2">
+                              <li class="mb-2">
+                                「請詳細說明您是如何計算系統可擴展性提升30%的？使用了哪些具體指標？」
+                              </li>
+                              <li class="mb-2">
+                                「您提到降低了40%運營成本，能否分享這個數據的計算基礎和具體實施的優化措施？」
+                              </li>
+                            </ul>
+                            <p class="font-bold mb-3 mt-4">
+                              2. 核對履歷中的時間線：
+                            </p>
+                            <ul class="pl-6 mt-2">
+                              <li class="mb-2">
+                                「請確認一下您在XYZ公司的確切在職時間，以及與ABC科技的工作是否有重疊？」
+                              </li>
+                              <li class="mb-2">
+                                「我注意到您的碩士學位與第一份全職工作在時間上似乎有些重疊，能否說明您是如何兼顧的？」
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1181,110 +1216,84 @@ const downloadQuestions = () => {
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
+                      <!-- 修改的部分：新的連結框 -->
                       <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection('skills-section', '高級程式設計')
-                        "
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3"
                       >
+                        <h4 class="text-18px font-bold mb-2">
+                          可疑的履歷片段：
+                        </h4>
+
                         <div
-                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-3 pb-2 border-b-1 border-b-solid border-b-#eee"
+                          @click="
+                            scrollToSection('skills-section', '高級程式設計')
+                          "
                         >
-                          <p class="m-0 flex items-center">
-                            <span class="line-clamp-2 flex-1"
-                              >高級程式設計：精通
-                              Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
-                            >
-                            <span class="click-hint ml-2 flex-shrink-0">
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M9 18L15 12L9 6"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </span>
-                          </p>
+                          <span class="text-16px text-#00afb8 font-bold"
+                            >高級程式設計：精通
+                            Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-3 pb-2 border-b-1 border-b-solid border-b-#eee"
+                          @click="
+                            scrollToSection(
+                              'experience-section',
+                              '系統架構設計：主導企業級應用程式架構'
+                            )
+                          "
+                        >
+                          <span class="text-16px text-#00afb8 font-bold"
+                            >系統架構設計：主導企業級應用程式架構，運用微服務與
+                            AWS 雲端技術，提升系統可擴展性 30%。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                          @click="
+                            scrollToSection(
+                              'experience-section',
+                              '專案領導：帶領 10'
+                            )
+                          "
+                        >
+                          <span class="text-16px text-#00afb8 font-bold"
+                            >專案領導：帶領 10
+                            人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
                         </div>
                       </div>
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'experience-section',
-                            '系統架構設計：主導企業級應用程式架構'
-                          )
-                        "
-                      >
-                        <p
-                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <span class="line-clamp-2 flex-1">
-                            系統架構設計：主導企業級應用程式架構，運用微服務與
-                            AWS 雲端技術，提升系統可擴展性 30%。
-                          </span>
-                          <span class="click-hint ml-2">
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 18L15 12L9 6"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </p>
-                      </div>
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'experience-section',
-                            '專案領導：帶領 10'
-                          )
-                        "
-                      >
-                        <p
-                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <span class="line-clamp-2 flex-1">
-                            專案領導：帶領 10
-                            人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。
-                          </span>
-                          <span class="click-hint ml-2">
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 18L15 12L9 6"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </p>
-                      </div>
+                      <!-- 結束修改部分 -->
                       <div>
                         <p class="text-16px leading-24px text-#555">
                           羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
@@ -1303,7 +1312,7 @@ const downloadQuestions = () => {
                           <img
                             src="@/assets/images/icon_thumbs_up.svg"
                             alt="讚"
-                            class="w-5 h-5"
+                            class="w-6 h-6"
                           />
                         </button>
                         <button
@@ -1314,7 +1323,7 @@ const downloadQuestions = () => {
                           <img
                             src="@/assets/images/icon_thumbs_down.svg"
                             alt="倒讚"
-                            class="w-5 h-5"
+                            class="w-6 h-6"
                           />
                         </button>
                       </div>
@@ -1329,77 +1338,60 @@ const downloadQuestions = () => {
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
+                      <!-- 修改的部分：新的連結框 -->
                       <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection('skills-section', '雲端與 DevOps')
-                        "
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3"
                       >
+                        <h4 class="text-18px font-bold mb-2">
+                          可疑的履歷片段：
+                        </h4>
+
                         <div
-                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-3 pb-2 border-b-1 border-b-solid border-b-#eee"
+                          @click="
+                            scrollToSection('skills-section', '雲端與 DevOps')
+                          "
                         >
-                          <p class="m-0 flex items-center">
-                            <span class="line-clamp-2 flex-1"
-                              >雲端與 DevOps：掌握
-                              AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
-                            >
-                            <span class="click-hint ml-2 flex-shrink-0">
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M9 18L15 12L9 6"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </span>
-                          </p>
+                          <span class="text-16px text-#00afb8 font-bold"
+                            >雲端與 DevOps：掌握
+                            AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                          @click="
+                            scrollToSection(
+                              'experience-section',
+                              '效能優化：重構後端程式碼'
+                            )
+                          "
+                        >
+                          <span class="text-16px text-#00afb8 font-bold"
+                            >效能優化：重構後端程式碼，縮短 API 響應時間
+                            25%，顯著提升用戶滿意度。</span
+                          >
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
                         </div>
                       </div>
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'experience-section',
-                            '效能優化：重構後端程式碼'
-                          )
-                        "
-                      >
-                        <div
-                          class="text-16px leading-24px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <p class="m-0 flex items-center">
-                            <span class="line-clamp-2 flex-1"
-                              >效能優化：重構後端程式碼，縮短 API 響應時間
-                              25%，顯著提升用戶滿意度。</span
-                            >
-                            <span class="click-hint ml-2 flex-shrink-0">
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M9 18L15 12L9 6"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
+                      <!-- 結束修改部分 -->
                       <div>
                         <p class="text-16px leading-24px text-#555">
                           使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
@@ -1418,7 +1410,7 @@ const downloadQuestions = () => {
                           <img
                             src="@/assets/images/icon_thumbs_up.svg"
                             alt="讚"
-                            class="w-5 h-5"
+                            class="w-6 h-6"
                           />
                         </button>
                         <button
@@ -1429,7 +1421,7 @@ const downloadQuestions = () => {
                           <img
                             src="@/assets/images/icon_thumbs_down.svg"
                             alt="倒讚"
-                            class="w-5 h-5"
+                            class="w-6 h-6"
                           />
                         </button>
                       </div>
