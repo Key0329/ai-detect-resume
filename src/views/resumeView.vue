@@ -164,15 +164,18 @@ const redirectToChat = () => {
 
 // 下載提問建議功能
 const downloadQuestions = () => {
-  // 獲取問題文本
-  const questions = [
-    "您提到在ABC科技時提升系統可擴展性30%，能否詳細說明當時的系統架構是什麼，面臨哪些具體挑戰，以及您如何量化這個改善效果？",
-    "您履歷上列出多種技術能力，包括React、Node.js、AWS等，能否舉一個您最熟悉的技術棧，並分享一個您運用它克服的最困難技術問題？",
-    "關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？",
-  ];
+  // 問題範本文本
+  const content = `李先生您好，感謝您應徵我們的職位！
 
-  // 創建文本內容，包含標題和提問
-  const content = `# 面試提問建議\n\n${questions.map((q, i) => `${i + 1}. ${q}`).join("\n\n")}`;
+我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：
+
+1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？
+
+2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？
+
+3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？
+
+感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。`;
 
   // 創建Blob對象
   const blob = new Blob([content], { type: "text/plain" });
@@ -183,7 +186,7 @@ const downloadQuestions = () => {
   // 創建臨時連結並模擬點擊下載
   const link = document.createElement("a");
   link.href = url;
-  link.download = "面試提問建議.txt";
+  link.download = "面試前問題範本.txt";
   document.body.appendChild(link);
   link.click();
 
@@ -1381,7 +1384,7 @@ const downloadQuestions = () => {
               class="flex justify-between items-center cursor-pointer"
               @click="toggleInterviewQuestions"
             >
-              <h3 class="text-18px font-bold my-0">建議提問問題</h3>
+              <h3 class="text-18px font-bold my-0">建議問題範本</h3>
               <div
                 class="transform transition-transform duration-300"
                 :class="isInterviewQuestionsExpanded ? 'rotate-180' : ''"
@@ -1409,104 +1412,14 @@ const downloadQuestions = () => {
               <div class="interview-questions-content">
                 <template v-if="isInterviewQuestionsExpanded">
                   <p class="text-14px leading-22px mb-3">
-                    以下是針對該履歷內容的建議問題，可直接複製使用：
+                    以下是面試前可透過訊息向候選人詢問的文案，可直接複製使用：
                   </p>
-
-                  <div
-                    class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
-                    @click="
-                      copyToClipboard(
-                        '您提到在ABC科技時提升系統可擴展性30%，能否詳細說明當時的系統架構是什麼，面臨哪些具體挑戰，以及您如何量化這個改善效果？'
-                      )
-                    "
-                  >
-                    <div
-                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#00AFB8"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <rect
-                          x="9"
-                          y="9"
-                          width="13"
-                          height="13"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                        ></path>
-                      </svg>
-                    </div>
-                    <p class="text-14px leading-22px mb-1 font-bold">
-                      請求具體技術細節：
-                    </p>
-                    <p
-                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
-                    >
-                      "您提到在ABC科技時提升系統可擴展性30%，能否詳細說明當時的系統架構是什麼，面臨哪些具體挑戰，以及您如何量化這個改善效果？"
-                    </p>
-                  </div>
-
-                  <div
-                    class="p-3 bg-white rounded-4px mb-2 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
-                    @click="
-                      copyToClipboard(
-                        '您履歷上列出多種技術能力，包括React、Node.js、AWS等，能否舉一個您最熟悉的技術棧，並分享一個您運用它克服的最困難技術問題？'
-                      )
-                    "
-                  >
-                    <div
-                      class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#00AFB8"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <rect
-                          x="9"
-                          y="9"
-                          width="13"
-                          height="13"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                        ></path>
-                      </svg>
-                    </div>
-                    <p class="text-14px leading-22px mb-1 font-bold">
-                      驗證技術深度：
-                    </p>
-                    <p
-                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
-                    >
-                      "您履歷上列出多種技術能力，包括React、Node.js、AWS等，能否舉一個您最熟悉的技術棧，並分享一個您運用它克服的最困難技術問題？"
-                    </p>
-                  </div>
 
                   <div
                     class="p-3 bg-white rounded-4px mb-4 border-l-4 border-l-#00AFB8 relative group cursor-pointer hover:bg-#f9f9f9"
                     @click="
                       copyToClipboard(
-                        '關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？'
+                        '李先生您好，感謝您應徵我們的職位！\n\n我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：\n\n1. 您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？\n\n2. 您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？\n\n3. 關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？\n\n感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。'
                       )
                     "
                   >
@@ -1537,13 +1450,23 @@ const downloadQuestions = () => {
                         ></path>
                       </svg>
                     </div>
-                    <p class="text-14px leading-22px mb-1 font-bold">
-                      探索數據背後的故事：
-                    </p>
                     <p
-                      class="text-14px leading-22px pl-2 border-l-2 border-transparent"
+                      class="text-14px leading-22px pl-3 pr-3 border-l-2 border-transparent"
                     >
-                      "關於數位轉型平台專案，您提到降低40%運營成本，這個數字是如何計算出來的？能否分享實施過程中遇到的三個最大阻力，以及您個人是如何克服的？"
+                      李先生您好，感謝您應徵我們的職位！
+                      <br /><br />
+                      我們對您的履歷很有興趣，希望您能先協助回覆以下幾個問題，幫助我們更了解您的專業背景：
+                      <br /><br />
+                      1.
+                      您在履歷中提到在ABC科技時提升系統可擴展性30%，能否簡要說明當時的系統架構以及您採取了哪些具體措施來實現這個改善？
+                      <br /><br />
+                      2.
+                      您列出精通多種技術如Python、JavaScript和Java等，能否分享一個您最熟悉的技術棧，以及一個您使用這些技術解決的最具挑戰性問題？
+                      <br /><br />
+                      3.
+                      關於數位轉型平台專案，您提到降低了40%的運營成本，這個數據是如何計算的？過程中遇到了哪些主要困難，您是如何解決的？
+                      <br /><br />
+                      感謝您的配合！您的回覆將幫助我們更好地準備面試內容。期待您的回音，也期待不久後與您見面交流。
                     </p>
                   </div>
                   <!-- 添加按鈕區域 -->
@@ -1570,7 +1493,7 @@ const downloadQuestions = () => {
                         <polyline points="7 10 12 15 17 10"></polyline>
                         <line x1="12" y1="15" x2="12" y2="3"></line>
                       </svg>
-                      下載提問建議
+                      下載問題範本
                     </button>
                     <button
                       class="py-2 px-6 text-14px bg-#00afb8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors flex items-center"
