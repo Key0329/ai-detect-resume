@@ -137,6 +137,15 @@ const handleQuestionsRequest = (need) => {
   } else {
     needQuestions.value = false;
     showDenyTip.value = true;
+
+    // 滾動到提示訊息位置
+    setTimeout(() => {
+      const questionSection = document.getElementById("question-section");
+      if (questionSection) {
+        questionSection.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+
     // 3秒後隱藏提示
     setTimeout(() => {
       showDenyTip.value = false;
@@ -965,7 +974,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1013,7 +1022,7 @@ const downloadQuestions = () => {
                     @click="scrollToSection('skills-section', '高級程式設計')"
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1050,7 +1059,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <span class="line-clamp-2 flex-1">
                         系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
@@ -1082,7 +1091,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <span class="line-clamp-2 flex-1">
                         專案領導：帶領 10
@@ -1128,7 +1137,7 @@ const downloadQuestions = () => {
                     @click="scrollToSection('skills-section', '雲端與 DevOps')"
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1165,7 +1174,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <div
-                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <p class="m-0 flex items-center">
                         <span class="line-clamp-2 flex-1"
@@ -1218,7 +1227,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <span class="line-clamp-2 flex-1">
                         本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
@@ -1268,7 +1277,7 @@ const downloadQuestions = () => {
                     "
                   >
                     <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden"
+                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
                     >
                       <span class="line-clamp-2 flex-1">
                         我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
@@ -1313,7 +1322,7 @@ const downloadQuestions = () => {
               </p>
               <div class="flex gap-4 justify-center">
                 <button
-                  class="py-2 px-6 bg-#eee border-none rounded-4px cursor-pointer hover:bg-#ddd transition-colors"
+                  class="py-2 px-6 bg-transparent border-1 border-solid border-#00afb8 text-#00afb8 rounded-4px cursor-pointer hover:bg-#00afb8 hover:text-white transition-colors"
                   @click="handleQuestionsRequest(false)"
                 >
                   不需要
@@ -1329,6 +1338,7 @@ const downloadQuestions = () => {
             <!-- 不需要時的溫馨提示 -->
             <div
               v-if="showDenyTip"
+              id="question-section"
               class="mt-4 p-3 bg-#FFF8E1 text-#856404 rounded-4px text-14px"
             >
               <p class="m-0 text-start">
