@@ -953,13 +953,13 @@ const downloadQuestions = () => {
           <!-- AI 工具標題與介紹 -->
           <div class="mb-6">
             <p class="text-14px leading-20px text-#555 mb-3">
-              此工具透過分析履歷文本特徵，協助識別可能由AI生成的內容。
+              此工具透過分析履歷文本特徵，協助識別可能由 AI 生成的內容。
             </p>
             <div class="bg-#FFF8E1 p-3 rounded-4px text-14px text-#856404">
               <p class="m-0 leading-20px">
                 分析僅供參考，建議結合面試表現進行綜合評估。
                 <br />
-                點擊藍色區塊可查看原文。
+                點擊顏色區塊可查看原文。
               </p>
             </div>
           </div>
@@ -1012,6 +1012,34 @@ const downloadQuestions = () => {
                     <p class="text-14px leading-22px text-#555">
                       使用過於精確的數字（30%、40%、90%）但缺乏計算方法說明，顯示AI傾向於產生整齊的百分比數據。時間線存在重疊矛盾，工作經驗總和與學歷期間不符，無法自圓其說，這是AI合成履歷常見的邏輯問題。
                     </p>
+                  </div>
+                  <!-- 添加反饋按鈕 -->
+                  <div class="flex justify-end mt-3 items-center">
+                    <span class="text-14px text-#7e7e7e mr-2"
+                      >分析有用嗎？</span
+                    >
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item1.liked }"
+                      @click="handleFeedback('item1', 'like')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_up.svg"
+                        alt="讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item1.disliked }"
+                      @click="handleFeedback('item1', 'dislike')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_down.svg"
+                        alt="倒讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1128,6 +1156,34 @@ const downloadQuestions = () => {
                       羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
                     </p>
                   </div>
+                  <!-- 添加反饋按鈕 -->
+                  <div class="flex justify-end mt-3 items-center">
+                    <span class="text-14px text-#7e7e7e mr-2"
+                      >分析有用嗎？</span
+                    >
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item2.liked }"
+                      @click="handleFeedback('item2', 'like')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_up.svg"
+                        alt="讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item2.disliked }"
+                      @click="handleFeedback('item2', 'dislike')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_down.svg"
+                        alt="倒讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1213,6 +1269,34 @@ const downloadQuestions = () => {
                       使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
                     </p>
                   </div>
+                  <!-- 添加反饋按鈕 -->
+                  <div class="flex justify-end mt-3 items-center">
+                    <span class="text-14px text-#7e7e7e mr-2"
+                      >分析有用嗎？</span
+                    >
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item3.liked }"
+                      @click="handleFeedback('item3', 'like')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_up.svg"
+                        alt="讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item3.disliked }"
+                      @click="handleFeedback('item3', 'dislike')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_down.svg"
+                        alt="倒讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1262,6 +1346,34 @@ const downloadQuestions = () => {
                     <p class="text-14px leading-22px text-#555">
                       使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
                     </p>
+                  </div>
+                  <!-- 添加反饋按鈕 -->
+                  <div class="flex justify-end mt-3 items-center">
+                    <span class="text-14px text-#7e7e7e mr-2"
+                      >分析有用嗎？</span
+                    >
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item4.liked }"
+                      @click="handleFeedback('item4', 'like')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_up.svg"
+                        alt="讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item4.disliked }"
+                      @click="handleFeedback('item4', 'dislike')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_down.svg"
+                        alt="倒讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1313,6 +1425,34 @@ const downloadQuestions = () => {
                       充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
                     </p>
                   </div>
+                  <!-- 添加反饋按鈕 -->
+                  <div class="flex justify-end mt-3 items-center">
+                    <span class="text-14px text-#7e7e7e mr-2"
+                      >分析有用嗎？</span
+                    >
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item5.liked }"
+                      @click="handleFeedback('item5', 'like')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_up.svg"
+                        alt="讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                    <button
+                      class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
+                      :class="{ 'bg-#E6F7F8': feedbacks.item5.disliked }"
+                      @click="handleFeedback('item5', 'dislike')"
+                    >
+                      <img
+                        src="@/assets/images/icon_thumbs_down.svg"
+                        alt="倒讚"
+                        class="w-5 h-5"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1321,7 +1461,7 @@ const downloadQuestions = () => {
           <!-- 問題引導區域 -->
           <div
             v-if="showQuestionPrompt"
-            class="bg-white p-4 rounded-4px mb-6 border-1 border-solid border-#eee"
+            class="bg-#E6F7F8 p-4 rounded-4px mb-8 border-1 border-solid border-#eee"
           >
             <div v-if="!isQuestionsLoading">
               <p class="text-16px leading-24px mb-4">
@@ -1357,9 +1497,7 @@ const downloadQuestions = () => {
               <div
                 class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
               ></div>
-              <p
-                class="text-14px text-#555 mt-2 flex items-center justify-center"
-              >
+              <p class="text-14px text-#555 flex items-center justify-center">
                 <span class="mr-2">正在生成問題建議</span>
                 <span class="inline-flex">
                   <span class="animate-pulse">.</span>
