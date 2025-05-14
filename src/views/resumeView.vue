@@ -1272,29 +1272,31 @@ const handleQuestionsRequest = (need) => {
             v-if="showQuestionPrompt"
             class="bg-white p-4 rounded-4px mb-6 border-1 border-solid border-#eee"
           >
-            <p class="text-16px leading-24px mb-4">
-              以上是我的分析報告，我可以幫你產出提問求職者的方向，你是否需要相關問題？
-            </p>
-            <div class="flex gap-4 justify-center">
-              <button
-                class="py-2 px-6 bg-#eee border-none rounded-4px cursor-pointer hover:bg-#ddd transition-colors"
-                @click="handleQuestionsRequest(false)"
-              >
-                不需要
-              </button>
-              <button
-                class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
-                @click="handleQuestionsRequest(true)"
-              >
-                需要
-              </button>
+            <div v-if="!isQuestionsLoading">
+              <p class="text-16px leading-24px mb-4">
+                我可以幫您總結提問求職者的方向，是否為您提供相關問題？
+              </p>
+              <div class="flex gap-4 justify-center">
+                <button
+                  class="py-2 px-6 bg-#eee border-none rounded-4px cursor-pointer hover:bg-#ddd transition-colors"
+                  @click="handleQuestionsRequest(false)"
+                >
+                  不需要
+                </button>
+                <button
+                  class="py-2 px-6 bg-#00AFB8 text-white border-none rounded-4px cursor-pointer hover:bg-#009199 transition-colors"
+                  @click="handleQuestionsRequest(true)"
+                >
+                  需要
+                </button>
+              </div>
             </div>
             <!-- 不需要時的溫馨提示 -->
             <div
               v-if="showDenyTip"
-              class="mt-4 p-3 bg-#E8F4FD text-#0366D6 rounded-4px text-14px"
+              class="mt-4 p-3 bg-#FFF8E1 text-#856404 rounded-4px text-14px"
             >
-              <p class="m-0 text-center">
+              <p class="m-0 text-start">
                 建議面試時能多了解候選人，提出具體問題以驗證履歷真實性
               </p>
             </div>
