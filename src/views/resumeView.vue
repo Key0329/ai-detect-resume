@@ -16,6 +16,15 @@ const feedbacks = ref({
   item5: { liked: false, disliked: false },
 });
 
+// 追蹤已點擊過的項目
+const clickedItems = ref({
+  item1: false,
+  item2: false,
+  item3: false,
+  item4: false,
+  item5: false,
+});
+
 // 處理用戶反饋
 const handleFeedback = (itemId, type) => {
   // 如果用戶點擊已選中的按鈕，則取消選中
@@ -65,7 +74,17 @@ const copyToClipboard = (text) => {
 };
 
 // 增強型定位功能：滾動到指定段落並高亮顯示
-const scrollToSection = (sectionId, targetText) => {
+const scrollToSection = (sectionId, targetText, itemId) => {
+  // 清除所有已點擊狀態
+  if (itemId) {
+    // 先重置所有項目的點擊狀態
+    for (const key in clickedItems.value) {
+      clickedItems.value[key] = false;
+    }
+    // 只設定當前項目為已點擊
+    clickedItems.value[itemId] = true;
+  }
+
   // 清除之前的高亮效果
   if (highlightedElement.value) {
     highlightedElement.value.classList.remove("highlight-content");
@@ -850,12 +869,12 @@ const scrollToSection = (sectionId, targetText) => {
 
         <!-- 實際內容 -->
         <div v-else>
-          <p class="text-16px leading-24px mb-4 text-start mt-0">
+          <!-- <p class="text-16px leading-24px mb-4 text-start mt-0">
             查看並點擊相應錨點跳轉到履歷上的對應段落。
-          </p>
+          </p> -->
 
           <!-- 錨點導航按鈕 -->
-          <div class="mb-6 flex flex-wrap gap-2">
+          <!-- <div class="mb-6 flex flex-wrap gap-2">
             <button
               @click="scrollToSection('education-section')"
               class="text-14px py-1 px-3 bg-#f3f3f3 hover:bg-#e0e0e0 rounded-full"
@@ -886,424 +905,454 @@ const scrollToSection = (sectionId, targetText) => {
             >
               自傳
             </button>
-          </div>
+          </div> -->
 
           <!-- 整合後的分析區塊 -->
           <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
             <h3 class="text-18px font-bold">建議關注內容</h3>
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">1.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'autobiography-section',
-                        '我堅信技術創新與團隊協作是驅動成功的核心'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+            <div class="timeline-container relative">
+              <!-- 固定位置的垂直線 -->
+              <div class="fixed-timeline-line"></div>
+
+              <div class="mb-2">
+                <div class="flex items-start mb-1 relative">
+                  <div class="timeline-indicator">
+                    <div
+                      class="circle-indicator"
+                      :class="{ filled: clickedItems.item3 || false }"
+                    ></div>
                   </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：自傳中出現大量套話與形容詞，如「堅信」「積極」「卓越」等，缺乏個人獨特經歷或具體案例佐證，語調過於制式。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item3', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item3.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item3.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                  <div class="w-full">
+                    <div
+                      class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                      @click="
+                        scrollToSection(
+                          'autobiography-section',
+                          '我堅信技術創新與團隊協作是驅動成功的核心',
+                          'item3'
+                        )
+                      "
+                    >
+                      <p
+                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      >
+                        我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                        關注原因：自傳中出現大量套話與形容詞，如「堅信」「積極」「卓越」等，缺乏個人獨特經歷或具體案例佐證，語調過於制式。
+                        <span class="flex justify-end mt-2">
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item3', 'like')"
+                            :class="{ 'text-#4CAF50': feedbacks.item3.liked }"
                           >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item3', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item3.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item3.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item3.liked
+                                  ? '#4CAF50'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item3', 'dislike')"
+                            :class="{
+                              'text-#F44336': feedbacks.item3.disliked,
+                            }"
                           >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item3.disliked
+                                  ? '#F44336'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                              ></path>
+                            </svg>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">2.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'autobiography-section',
-                        '本人在資訊科技領域深耕逾十年'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+              <div class="mb-2">
+                <div class="flex items-start mb-1 relative">
+                  <div class="timeline-indicator">
+                    <div
+                      class="circle-indicator"
+                      :class="{ filled: clickedItems.item4 || false }"
+                    ></div>
                   </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：使用「深耕逾十年」「奠定堅實的技術基礎」等過於正式與通用的措辭，缺乏個人真實經歷描述，呈現AI生成的特徵。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item4', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item4.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item4.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                  <div class="w-full">
+                    <div
+                      class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                      @click="
+                        scrollToSection(
+                          'autobiography-section',
+                          '本人在資訊科技領域深耕逾十年',
+                          'item4'
+                        )
+                      "
+                    >
+                      <p
+                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      >
+                        本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                        關注原因：使用「深耕逾十年」「奠定堅實的技術基礎」等過於正式與通用的措辭，缺乏個人真實經歷描述，呈現AI生成的特徵。
+                        <span class="flex justify-end mt-2">
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item4', 'like')"
+                            :class="{ 'text-#4CAF50': feedbacks.item4.liked }"
                           >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item4', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item4.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item4.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item4.liked
+                                  ? '#4CAF50'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item4', 'dislike')"
+                            :class="{
+                              'text-#F44336': feedbacks.item4.disliked,
+                            }"
                           >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item4.disliked
+                                  ? '#F44336'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                              ></path>
+                            </svg>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">3.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'experience-section',
-                        '【數位轉型平台】成效'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低 40%
-                      運營成本，業績增長 15%。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+              <div class="mb-2">
+                <div class="flex items-start mb-1 relative">
+                  <div class="timeline-indicator">
+                    <div
+                      class="circle-indicator"
+                      :class="{ filled: clickedItems.item5 || false }"
+                    ></div>
                   </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：使用精確數字（40%、15%）誇大專案成果，但缺乏具體細節說明，顯得公式化，是AI生成內容的典型特徵。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item5', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item5.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item5.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                  <div class="w-full">
+                    <div
+                      class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                      @click="
+                        scrollToSection(
+                          'experience-section',
+                          '【數位轉型平台】成效',
+                          'item5'
+                        )
+                      "
+                    >
+                      <p
+                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      >
+                        【數位轉型平台】成效：成功將傳統系統遷移至雲端，降低 40%
+                        運營成本，業績增長 15%。
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                        關注原因：使用精確數字（40%、15%）誇大專案成果，但缺乏具體細節說明，顯得公式化，是AI生成內容的典型特徵。
+                        <span class="flex justify-end mt-2">
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item5', 'like')"
+                            :class="{ 'text-#4CAF50': feedbacks.item5.liked }"
                           >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item5', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item5.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item5.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item5.liked
+                                  ? '#4CAF50'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item5', 'dislike')"
+                            :class="{
+                              'text-#F44336': feedbacks.item5.disliked,
+                            }"
                           >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item5.disliked
+                                  ? '#F44336'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                              ></path>
+                            </svg>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">4.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="
-                      scrollToSection(
-                        'experience-section',
-                        '系統架構設計：主導企業級應用程式架構'
-                      )
-                    "
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
-                      雲端技術，提升系統可擴展性 30%。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+              <div class="mb-2">
+                <div class="flex items-start mb-1 relative">
+                  <div class="timeline-indicator">
+                    <div
+                      class="circle-indicator"
+                      :class="{ filled: clickedItems.item1 || false }"
+                    ></div>
                   </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：敘述過於制式化且使用通用詞彙，缺乏具體說明如何運用微服務架構及實際提升可擴展性的方法和過程。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item1', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item1.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item1.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                  <div class="w-full">
+                    <div
+                      class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                      @click="
+                        scrollToSection(
+                          'experience-section',
+                          '系統架構設計：主導企業級應用程式架構',
+                          'item1'
+                        )
+                      "
+                    >
+                      <p
+                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      >
+                        系統架構設計：主導企業級應用程式架構，運用微服務與 AWS
+                        雲端技術，提升系統可擴展性 30%。
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                        關注原因：敘述過於制式化且使用通用詞彙，缺乏具體說明如何運用微服務架構及實際提升可擴展性的方法和過程。
+                        <span class="flex justify-end mt-2">
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item1', 'like')"
+                            :class="{ 'text-#4CAF50': feedbacks.item1.liked }"
                           >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item1', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item1.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item1.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item1.liked
+                                  ? '#4CAF50'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item1', 'dislike')"
+                            :class="{
+                              'text-#F44336': feedbacks.item1.disliked,
+                            }"
                           >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item1.disliked
+                                  ? '#F44336'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                              ></path>
+                            </svg>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-2">
-              <div class="flex items-start mb-1">
-                <span class="font-bold">5.</span>
-                <div class="w-full">
-                  <div
-                    class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
-                    @click="scrollToSection('skills-section', '高級程式設計')"
-                  >
-                    <p
-                      class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
-                    >
-                      高級程式設計：精通
-                      Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。
-                      <span class="click-hint ml-2">
-                        <img
-                          src="@/assets/images/icon_scroll_to.svg"
-                          alt="定位指示器"
-                        />
-                      </span>
-                    </p>
+              <div class="mb-2">
+                <div class="flex items-start mb-1 relative">
+                  <div class="timeline-indicator">
+                    <div
+                      class="circle-indicator"
+                      :class="{ filled: clickedItems.item2 || false }"
+                    ></div>
                   </div>
-                  <div>
-                    <p class="text-14px leading-22px mt-1 ml-3 text-#555">
-                      關注原因：堆砌多種技術關鍵字但未提及實際應用場景，「精通」、「高效能系統建構」等表述過於抽象，缺乏可驗證的專案實例。
-                      <span class="flex justify-end mt-2">
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item2', 'like')"
-                          :class="{ 'text-#4CAF50': feedbacks.item2.liked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item2.liked ? '#4CAF50' : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                  <div class="w-full">
+                    <div
+                      class="border-l-4 border-l-#ff6b6b pl-3 cursor-pointer hover:bg-#f0f0f0 click-area"
+                      @click="
+                        scrollToSection(
+                          'skills-section',
+                          '高級程式設計',
+                          'item2'
+                        )
+                      "
+                    >
+                      <p
+                        class="text-14px leading-22px font-bold m-0 flex line-clamp-2"
+                      >
+                        高級程式設計：精通
+                        Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-14px leading-22px mt-1 ml-3 text-#555">
+                        關注原因：堆砌多種技術關鍵字但未提及實際應用場景，「精通」、「高效能系統建構」等表述過於抽象，缺乏可驗證的專案實例。
+                        <span class="flex justify-end mt-2">
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item2', 'like')"
+                            :class="{ 'text-#4CAF50': feedbacks.item2.liked }"
                           >
-                            <path
-                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
-                          @click="handleFeedback('item2', 'dislike')"
-                          :class="{ 'text-#F44336': feedbacks.item2.disliked }"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            :stroke="
-                              feedbacks.item2.disliked
-                                ? '#F44336'
-                                : 'currentColor'
-                            "
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item2.liked
+                                  ? '#4CAF50'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="p-1 mx-1 rounded-full hover:bg-#eee transition-colors"
+                            @click="handleFeedback('item2', 'dislike')"
+                            :class="{
+                              'text-#F44336': feedbacks.item2.disliked,
+                            }"
                           >
-                            <path
-                              d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
-                            ></path>
-                          </svg>
-                        </button>
-                      </span>
-                    </p>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              :stroke="
+                                feedbacks.item2.disliked
+                                  ? '#F44336'
+                                  : 'currentColor'
+                              "
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                              ></path>
+                            </svg>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1688,5 +1737,49 @@ const scrollToSection = (sectionId, targetText) => {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* 時間線與圓圈指示器樣式 */
+.timeline-container {
+  position: relative;
+}
+
+.fixed-timeline-line {
+  position: absolute;
+  left: 8.5px; /* 調整到圓的中心位置 */
+  top: 20px; /* 從第一個圓的底部開始 */
+  bottom: 180px; /* 到最後一個圓的頂部結束 */
+  width: 2px;
+  background-color: #00afb8;
+  z-index: 1;
+}
+
+.timeline-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.circle-indicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #00afb8;
+  background-color: white; /* 使用白色背景覆蓋直線 */
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+  z-index: 2; /* 確保圓圈在線條上方 */
+  box-shadow: 0 0 0 2px white; /* 添加白色陰影以完全覆蓋直線 */
+
+  &.filled {
+    background-color: #00afb8;
+  }
+}
+
+/* 確保 hover 效果不影響已點擊的狀態 */
+.click-area:hover + div .circle-indicator:not(.filled) {
+  background-color: rgba(0, 175, 184, 0.5); /* 半透明的懸停效果 */
 }
 </style>
