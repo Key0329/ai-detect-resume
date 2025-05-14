@@ -993,23 +993,9 @@ const downloadQuestions = () => {
             </div>
           </div>
 
-          <!-- AI 工具標題與介紹 -->
-          <div class="mb-6" v-show="activeTab === 'ai'">
-            <p class="text-14px leading-20px text-#555 mb-3">
-              此工具透過分析履歷文本特徵，協助識別可能由 AI 生成的內容。
-            </p>
-            <div class="bg-#FFF8E1 p-3 rounded-4px text-14px text-#856404">
-              <p class="m-0 leading-20px">
-                分析僅供參考，建議結合面試表現進行綜合評估。
-                <br />
-                點擊顏色區塊可查看原文。
-              </p>
-            </div>
-          </div>
-
           <!-- 職缺條件標籤內容 -->
           <div class="mb-6" v-show="activeTab === 'condition'">
-            <p class="text-14px leading-20px text-#555 mb-3">
+            <!-- <p class="text-14px leading-20px text-#555 mb-3">
               求職條件與職缺條件比對結果。
             </p>
             <div class="bg-#F5F5F5 p-4 rounded-4px">
@@ -1074,22 +1060,36 @@ const downloadQuestions = () => {
                 2. 履歷表中缺少 RESTful API
                 串接、響應式佈局優化策略及端對端測試成效等必要技能，建議可以詢問是否有相關經驗。
               </p>
+            </div> -->
+            <div class="w-720px mx-auto">
+              <img
+                src="@/assets/images/condition.jpg"
+                alt="職缺條件"
+                class="w-full object-cover"
+              />
             </div>
           </div>
 
-          <!-- 敘述標籤內容 -->
           <div class="mb-6" v-show="activeTab === 'description'">
+            <div class="w-500px mx-auto">
+              <img
+                src="@/assets/images/roadmap.png"
+                alt="職涯地圖"
+                class="w-full object-cover"
+              />
+            </div>
+          </div>
+
+          <!-- AI 工具標題與介紹 -->
+          <div class="mb-6" v-show="activeTab === 'ai'">
             <p class="text-14px leading-20px text-#555 mb-3">
-              李冠宇是一位有著11年經驗的資深軟體工程師，擁有清華大學資工碩士學位。
+              此工具透過分析履歷文本特徵，協助識別可能由 AI 生成的內容。
             </p>
-            <div class="bg-#F5F5F5 p-4 rounded-4px">
-              <p class="m-0 font-bold mb-2">技能摘要</p>
-              <p class="m-0 mb-4">
-                精通全端開發，擅長 Python、JavaScript、Java，具備雲端架構經驗。
-              </p>
-              <p class="m-0 font-bold mb-2">主要成就</p>
-              <p class="m-0">
-                主導企業數位轉型，提升系統擴展性，優化效能表現，降低營運成本。
+            <div class="bg-#FFF8E1 p-3 rounded-4px text-14px text-#856404">
+              <p class="m-0 leading-20px">
+                分析僅供參考，建議結合面試表現進行綜合評估。
+                <br />
+                點擊顏色區塊可查看原文。
               </p>
             </div>
           </div>
