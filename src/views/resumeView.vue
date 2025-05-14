@@ -117,23 +117,27 @@ const handleQuestionsRequest = (need) => {
   if (need) {
     needQuestions.value = true;
     isQuestionsLoading.value = true;
-    // 模擬載入時間
-    setTimeout(() => {
-      isQuestionsLoading.value = false;
-      showQuestionGuide.value = true;
-      isInterviewQuestionsExpanded.value = true;
-      showQuestionPrompt.value = false; // 隱藏問題提示區域
 
-      // 等待DOM更新後滾動到問題區塊
+    // 確保UI更新，顯示loading動畫
+    setTimeout(() => {
+      // 模擬載入時間
       setTimeout(() => {
-        if (questionsRef.value) {
-          questionsRef.value.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }, 100);
-    }, 1500);
+        isQuestionsLoading.value = false;
+        showQuestionGuide.value = true;
+        isInterviewQuestionsExpanded.value = true;
+        showQuestionPrompt.value = false; // 隱藏問題提示區域
+
+        // 等待DOM更新後滾動到問題區塊
+        setTimeout(() => {
+          if (questionsRef.value) {
+            questionsRef.value.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }, 100);
+      }, 2000);
+    }, 0);
   } else {
     needQuestions.value = false;
     showDenyTip.value = true;
@@ -1350,7 +1354,20 @@ const downloadQuestions = () => {
               <div
                 class="inline-block w-6 h-6 border-2 border-t-#00AFB8 border-r-#00AFB8 border-b-transparent border-l-transparent rounded-full animate-spin"
               ></div>
-              <p class="text-14px text-#555 mt-2">正在生成問題建議...</p>
+              <p
+                class="text-14px text-#555 mt-2 flex items-center justify-center"
+              >
+                <span class="mr-2">正在生成問題建議</span>
+                <span class="inline-flex">
+                  <span class="animate-pulse">.</span>
+                  <span class="animate-pulse" style="animation-delay: 0.2s"
+                    >.</span
+                  >
+                  <span class="animate-pulse" style="animation-delay: 0.4s"
+                    >.</span
+                  >
+                </span>
+              </p>
             </div>
           </div>
 
@@ -1689,6 +1706,12 @@ const downloadQuestions = () => {
   animation: pulse 1.5s infinite;
 }
 
+.animate-pulse {
+  animation: pulse 1s infinite;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -1704,7 +1727,7 @@ const downloadQuestions = () => {
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
 }
 
