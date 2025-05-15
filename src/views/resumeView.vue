@@ -904,13 +904,13 @@ const downloadQuestions = () => {
 
     <!-- AI檢測 Side Drawer (無遮罩層) -->
     <div
-      class="side-drawer fixed top-0 right-0 h-full bg-#00afb8 z-50 w-800px transform transition-transform duration-300 ease-in-out shadow-lg text-start"
+      class="side-drawer fixed top-0 right-0 h-full bg-#BFF2F5 z-50 w-800px transform transition-transform duration-300 ease-in-out shadow-lg text-start"
       :class="showAIDetectDrawer ? 'translate-x-0' : 'translate-x-full'"
     >
       <div
-        class="drawer-header border-b-solid border-b-1px border-b-#eee p-4 flex justify-between items-center"
+        class="drawer-header border-b-solid border-b-1px border-b-#292929 p-4 flex justify-between items-center"
       >
-        <h2 class="text-24px font-bold m-0 text-white">AI 檢測結果</h2>
+        <h2 class="text-24px font-bold m-0 text-#292929">AI 檢測結果</h2>
         <button
           class="text-28px hover:bg-#f3f3f3 rounded-full w-8 h-8 flex items-center justify-center"
           @click="closeAIDetectDrawer"
@@ -958,7 +958,7 @@ const downloadQuestions = () => {
         <div v-else>
           <!-- AI 工具標題與介紹 -->
           <div class="mb-6">
-            <p class="text-16px leading-24px text-white mb-3">
+            <p class="text-16px leading-24px text-#292929 font-bold mb-3">
               此工具透過分析履歷文本特徵，協助產生履歷導覽。
             </p>
             <div class="bg-#FFF8E1 p-3 rounded-4px text-16px text-#856404">
@@ -1103,7 +1103,57 @@ const downloadQuestions = () => {
             <div v-show="activeTab === 'ai'">
               <!-- 卡片1：經歷跳躍或邏輯不通 -->
               <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
-                <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
+                <div class="flex justify-between items-center">
+                  <h3 class="text-20px font-bold">經歷跳躍或邏輯不通</h3>
+                  <div class="flex justify-end">
+                    <button
+                      class="p-2 mr-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{ 'bg-#e6f7f6': feedbacks.item1.liked }"
+                      @click="handleFeedback('item1', 'like')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#00AFB8"
+                      >
+                        <path
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="p-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{
+                        'bg-#ffeaea': feedbacks.item1.disliked,
+                      }"
+                      @click="handleFeedback('item1', 'dislike')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#ff5252"
+                      >
+                        <path
+                          d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
@@ -1148,7 +1198,7 @@ const downloadQuestions = () => {
                           class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
                           @click="
                             copyToClipboard(
-                              '面試提問建議：\n\n1. 關於數據準確性：\n- 請詳細說明您是如何計算系統可擴展性提升30%的？使用了哪些具體指標？\n- 您提到降低了40%運營成本，能否分享這個數據的計算基礎和具體實施的優化措施？\n- 業績增長15%是基於哪些銷售數據或市場表現？這與您的技術貢獻有何直接關聯？\n\n2. 關於時間線核對：\n- 請確認一下您在XYZ公司的確切在職時間，以及與ABC科技的工作是否有重疊？\n- 我注意到您的碩士學位與第一份全職工作在時間上似乎有些重疊，能否說明您是如何兼顧的？'
+                              '面試提問建議：\n\n闇於數據準確性，您可以請求求職者分享更詳細的計算方法，例如詢問系統可擴展性提升30%的具體指標，以及40%運營成本降低的計算基礎。\n\n關於時間線方面，可以委婉地請求確認在XYZ公司的確切在職時間，以及詢問碩士學位與第一份全職工作時間重疊的情況，了解求職者是如何兼顧的。透過這些對話，您能更全面評估履歷的真實性。'
                             )
                           "
                         >
@@ -1180,28 +1230,9 @@ const downloadQuestions = () => {
                             </svg>
                           </div>
                           <div class="font-normal">
-                            <p class="font-bold mb-3">
-                              1. 請求職者提供更多詳細的數據：
+                            <p class="m-0">
+                              您可以詢問數據背後的計算方法，例如系統可擴展性提升30%的具體指標和運營成本降低40%的計算基礎。同時，委婉地核對時間線問題，如不同公司的在職時間及碩士學位與工作的時間重疊，這些對話有助於評估履歷真實性。
                             </p>
-                            <ul class="pl-6 mt-2">
-                              <li class="mb-2">
-                                「請詳細說明您是如何計算系統可擴展性提升30%的？使用了哪些具體指標？」
-                              </li>
-                              <li class="mb-2">
-                                「您提到降低了40%運營成本，能否分享這個數據的計算基礎和具體實施的優化措施？」
-                              </li>
-                            </ul>
-                            <p class="font-bold mb-3 mt-4">
-                              2. 核對履歷中的時間線：
-                            </p>
-                            <ul class="pl-6 mt-2">
-                              <li class="mb-2">
-                                「請確認一下您在XYZ公司的確切在職時間，以及與ABC科技的工作是否有重疊？」
-                              </li>
-                              <li class="mb-2">
-                                「我注意到您的碩士學位與第一份全職工作在時間上似乎有些重疊，能否說明您是如何兼顧的？」
-                              </li>
-                            </ul>
                           </div>
                         </div>
                       </div>
@@ -1210,27 +1241,82 @@ const downloadQuestions = () => {
                 </div>
               </div>
 
+              <div class="border-solid border-b-2 border-#eee my-3"></div>
+
               <!-- 卡片2：堆砌熱門關鍵字但缺乏上下文 -->
-              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-                <h3 class="text-20px font-bold">堆砌熱門關鍵字但缺乏上下文</h3>
+              <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-20px font-bold">
+                    堆砌熱門關鍵字但缺乏上下文
+                  </h3>
+                  <div class="flex justify-end">
+                    <button
+                      class="p-2 mr-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{ 'bg-#e6f7f6': feedbacks.item2.liked }"
+                      @click="handleFeedback('item2', 'like')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#00AFB8"
+                      >
+                        <path
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="p-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{
+                        'bg-#ffeaea': feedbacks.item2.disliked,
+                      }"
+                      @click="handleFeedback('item2', 'dislike')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#ff5252"
+                      >
+                        <path
+                          d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
+                      <div>
+                        <p class="text-16px leading-24px text-#555 mt-0">
+                          羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
+                        </p>
+                      </div>
                       <!-- 修改的部分：新的連結框 -->
                       <div
-                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3"
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3 mt-3"
                       >
-                        <h4 class="text-18px font-bold mb-2">
-                          可疑的履歷片段：
-                        </h4>
-
                         <div
                           class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-3 pb-2 border-b-1 border-b-solid border-b-#eee"
                           @click="
                             scrollToSection('skills-section', '高級程式設計')
                           "
                         >
-                          <span class="text-16px text-#00afb8 font-bold"
+                          <span class="text-14px text-#00afb8 font-bold"
                             >高級程式設計：精通
                             Python、JavaScript、Java，具備跨平台全端開發能力，驅動高效能系統建構。</span
                           >
@@ -1254,7 +1340,7 @@ const downloadQuestions = () => {
                             )
                           "
                         >
-                          <span class="text-16px text-#00afb8 font-bold"
+                          <span class="text-14px text-#00afb8 font-bold"
                             >系統架構設計：主導企業級應用程式架構，運用微服務與
                             AWS 雲端技術，提升系統可擴展性 30%。</span
                           >
@@ -1278,7 +1364,7 @@ const downloadQuestions = () => {
                             )
                           "
                         >
-                          <span class="text-16px text-#00afb8 font-bold"
+                          <span class="text-14px text-#00afb8 font-bold"
                             >專案領導：帶領 10
                             人開發團隊，負責需求分析、功能規劃與敏捷開發，確保專案如期交付。</span
                           >
@@ -1293,66 +1379,130 @@ const downloadQuestions = () => {
                           </span>
                         </div>
                       </div>
-                      <!-- 結束修改部分 -->
-                      <div>
-                        <p class="text-16px leading-24px text-#555">
-                          羅列多種技術但缺乏實際應用案例，未提供技術掌握程度的具體證明，無法判斷技術深度真實性。
-                        </p>
-                      </div>
-                      <!-- 添加反饋按鈕 -->
-                      <div class="flex justify-end mt-3 items-center">
-                        <span class="text-20px text-#7e7e7e mr-2"
-                          >分析有用嗎？</span
+
+                      <div class="text-16px leading-24px text-#555 mt-0">
+                        建議提問：
+                        <div
+                          class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
+                          @click="
+                            copyToClipboard(
+                              '面試提問建議：\n\n您可以邀請求職者深入分享技術經驗，例如詢問在列出的技術中（Python、JavaScript、Java）最擅長哪一項，以及使用這項技術解決過的具體挑戰。\n\n同時，關於專案經驗，您可以請求分享帶領10人開發團隊的管理方法，以及在微服務架構實踐中遇到的具體挑戰和解決方案。這些對話能幫助您評估求職者技術能力的真實深度。'
+                            )
+                          "
                         >
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item2.liked }"
-                          @click="handleFeedback('item2', 'like')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_up.svg"
-                            alt="讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item2.disliked }"
-                          @click="handleFeedback('item2', 'dislike')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_down.svg"
-                            alt="倒讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
+                          <div
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#00AFB8"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
+                              <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
+                            </svg>
+                          </div>
+                          <div class="font-normal">
+                            <p class="m-0">
+                              您可以請求職者分享技術專長的具體應用，例如在列出的技術中最擅長哪一項，以及解決過的實際挑戰。同時詢問團隊管理經驗和微服務架構實踐中遇到的困難，這有助於了解求職者技術深度與解決問題的能力。
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              <div class="border-solid border-b-2 border-#eee my-3"></div>
+
               <!-- 卡片3：敘述抽象、缺乏細節 -->
-              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-                <h3 class="text-20px font-bold">敘述抽象、缺乏細節</h3>
+              <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-20px font-bold">敘述抽象、缺乏細節</h3>
+                  <div class="flex justify-end">
+                    <button
+                      class="p-2 mr-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{ 'bg-#e6f7f6': feedbacks.item3.liked }"
+                      @click="handleFeedback('item3', 'like')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#00AFB8"
+                      >
+                        <path
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="p-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{
+                        'bg-#ffeaea': feedbacks.item3.disliked,
+                      }"
+                      @click="handleFeedback('item3', 'dislike')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#ff5252"
+                      >
+                        <path
+                          d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
+                      <div>
+                        <p class="text-16px leading-24px text-#555 mt-0">
+                          使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
+                        </p>
+                      </div>
                       <!-- 修改的部分：新的連結框 -->
                       <div
-                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3"
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3 mt-3"
                       >
-                        <h4 class="text-18px font-bold mb-2">
-                          可疑的履歷片段：
-                        </h4>
-
                         <div
                           class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200 mb-3 pb-2 border-b-1 border-b-solid border-b-#eee"
                           @click="
                             scrollToSection('skills-section', '雲端與 DevOps')
                           "
                         >
-                          <span class="text-16px text-#00afb8 font-bold"
+                          <span class="text-14px text-#00afb8 font-bold"
                             >雲端與 DevOps：掌握
                             AWS、Docker、Kubernetes，實現自動化部署與雲端優化。</span
                           >
@@ -1376,7 +1526,7 @@ const downloadQuestions = () => {
                             )
                           "
                         >
-                          <span class="text-16px text-#00afb8 font-bold"
+                          <span class="text-14px text-#00afb8 font-bold"
                             >效能優化：重構後端程式碼，縮短 API 響應時間
                             25%，顯著提升用戶滿意度。</span
                           >
@@ -1391,195 +1541,332 @@ const downloadQuestions = () => {
                           </span>
                         </div>
                       </div>
-                      <!-- 結束修改部分 -->
-                      <div>
-                        <p class="text-16px leading-24px text-#555">
-                          使用抽象通用詞彙描述工作內容，缺少具體何種後端重構方法、如何優化雲端部署、實際解決了什麼技術挑戰等細節。AI傾向於提供籠統描述而非工作中可能遇到的實際問題與具體解決方案。
-                        </p>
-                      </div>
-                      <!-- 添加反饋按鈕 -->
-                      <div class="flex justify-end mt-3 items-center">
-                        <span class="text-20px text-#7e7e7e mr-2"
-                          >分析有用嗎？</span
+
+                      <div class="text-16px leading-24px text-#555 mt-0">
+                        建議提問：
+                        <div
+                          class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
+                          @click="
+                            copyToClipboard(
+                              '面試提問建議：\n\n您可以請求求職者分享關於技術實踐的具體細節，例如詢問一個使用AWS、Docker和Kubernetes的實際項目經驗，以及求職者在其中負責的具體部分。\n\n關於效能優化，可以請求分享如何縮短API響應時間的具體重構方法，以及如何識別性能瓶頸和量化成效。這樣的對話能幫助您更深入了解求職者的實際技術能力和解決問題的方法。'
+                            )
+                          "
                         >
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item3.liked }"
-                          @click="handleFeedback('item3', 'like')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_up.svg"
-                            alt="讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item3.disliked }"
-                          @click="handleFeedback('item3', 'dislike')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_down.svg"
-                            alt="倒讚"
-                            class="w-6 h-6"
-                          />
-                        </button>
+                          <div
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#00AFB8"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
+                              <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
+                            </svg>
+                          </div>
+                          <div class="font-normal">
+                            <p class="m-0">
+                              您可以引導求職者分享雲端與DevOps的實際項目細節，包括如何架構自動化部署流程；並請其說明API效能優化的具體重構方法和如何識別性能瓶頸。這類具體技術問題能幫助評估求職者解決實際問題的能力。
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              <div class="border-solid border-b-2 border-#eee my-3"></div>
+
               <!-- 卡片4：語言過於通用或制式 -->
-              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-                <h3 class="text-20px font-bold">語言過於通用或制式</h3>
+              <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-20px font-bold">語言過於通用或制式</h3>
+                  <div class="flex justify-end">
+                    <button
+                      class="p-2 mr-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{ 'bg-#e6f7f6': feedbacks.item4.liked }"
+                      @click="handleFeedback('item4', 'like')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#00AFB8"
+                      >
+                        <path
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="p-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{
+                        'bg-#ffeaea': feedbacks.item4.disliked,
+                      }"
+                      @click="handleFeedback('item4', 'dislike')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#ff5252"
+                      >
+                        <path
+                          d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'autobiography-section',
-                            '本人在資訊科技領域深耕逾十年'
-                          )
-                        "
-                      >
-                        <p
-                          class="text-20px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <span class="line-clamp-2 flex-1 leading-28px">
-                            本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
-                          </span>
-                          <span class="click-hint ml-2">
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 18L15 12L9 6"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </p>
-                      </div>
                       <div>
-                        <p class="text-20px leading-24px text-#555">
+                        <p class="text-16px leading-24px text-#555 mt-0">
                           使用「深耕逾十年」「奠定堅實基礎」等過於正式且通用的詞彙，缺乏個人口吻和真實經歷描述。
                         </p>
                       </div>
-                      <!-- 添加反饋按鈕 -->
-                      <div class="flex justify-end mt-3 items-center">
-                        <span class="text-20px text-#7e7e7e mr-2"
-                          >分析有用嗎？</span
+                      <div
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3 mt-3"
+                      >
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                          @click="
+                            scrollToSection(
+                              'autobiography-section',
+                              '本人在資訊科技領域深耕逾十年'
+                            )
+                          "
                         >
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item4.liked }"
-                          @click="handleFeedback('item4', 'like')"
+                          <span
+                            class="text-14px text-#00afb8 font-bold line-clamp-2"
+                          >
+                            本人在資訊科技領域深耕逾十年，畢業於國立中興大學資訊管理學系，並於國立清華大學取得資訊工程碩士學位，奠定堅實的技術基礎。
+                          </span>
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="text-16px leading-24px text-#555 mt-0">
+                        建議提問：
+                        <div
+                          class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
+                          @click="
+                            copyToClipboard(
+                              '面試提問建議：\n\n您可以邀請求職者分享具體經歷，例如詢問在資訊科技領域十年中最印象深刻的專案或挑戰，以及哪些具體經歷讓他的技術基礎變得堅實。\n\n同時，您也可以探詢求職者的專業成長歷程，例如詢問職業生涯中遇到的挑戰與學習，以及碩士研究方向對職業發展的影響。這樣的對話能幫助您了解求職者真實的職業經歷與專業成長。'
+                            )
+                          "
                         >
-                          <img
-                            src="@/assets/images/icon_thumbs_up.svg"
-                            alt="讚"
-                            class="w-5 h-5"
-                          />
-                        </button>
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item4.disliked }"
-                          @click="handleFeedback('item4', 'dislike')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_down.svg"
-                            alt="倒讚"
-                            class="w-5 h-5"
-                          />
-                        </button>
+                          <div
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#00AFB8"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
+                              <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
+                            </svg>
+                          </div>
+                          <div class="font-normal">
+                            <p class="m-0">
+                              您可以友善地邀請求職者分享在資訊科技領域十年中最難忘的專案或挑戰，以及哪些經歷幫助他建立了堅實的技術基礎。同時，探詢他的碩士研究方向如何影響職業發展，藉此了解求職者的真實經歷與成長歷程。
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              <div class="border-solid border-b-2 border-#eee my-3"></div>
+
               <!-- 卡片5：語句與結構過度一致 -->
-              <div class="bg-#f8f8f8 p-4 rounded-4px mb-4">
-                <h3 class="text-20px font-bold">語句與結構過度一致</h3>
+              <div class="bg-#fff8e1 p-4 rounded-4px mb-4">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-20px font-bold">語句與結構過度一致</h3>
+                  <div class="flex justify-end">
+                    <button
+                      class="p-2 mr-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{ 'bg-#e6f7f6': feedbacks.item5.liked }"
+                      @click="handleFeedback('item5', 'like')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#00AFB8"
+                      >
+                        <path
+                          d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="p-2 rounded-full hover:bg-#eee transition-colors w-10 h-10"
+                      :class="{
+                        'bg-#ffeaea': feedbacks.item5.disliked,
+                      }"
+                      @click="handleFeedback('item5', 'dislike')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="text-#ff5252"
+                      >
+                        <path
+                          d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
                 <div class="mb-2">
                   <div class="flex items-start mb-1">
                     <div class="w-full">
-                      <div
-                        class="border-l-4 border-l-#00afb8 cursor-pointer hover:bg-#f0f0f0 click-area mb-3"
-                        @click="
-                          scrollToSection(
-                            'autobiography-section',
-                            '我堅信技術創新與團隊協作是驅動成功的核心'
-                          )
-                        "
-                      >
-                        <p
-                          class="text-16px leading-24px font-bold m-0 flex line-clamp-2 text-#00afb8 bg-#E6F7F8 p-2 rounded-2px overflow-hidden hover:opacity-80 transition-opacity duration-200"
-                        >
-                          <span class="line-clamp-2 flex-1">
-                            我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
-                          </span>
-                          <span class="click-hint ml-2">
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 18L15 12L9 6"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </p>
-                      </div>
                       <div>
-                        <p class="text-16px leading-24px text-#555">
+                        <p class="text-16px leading-24px text-#555 mt-0">
                           充滿套話與形容詞如「堅信」「積極」，工作描述格式高度一致，每段皆用數字列表開頭並含「重要專案」段落。
                         </p>
                       </div>
-                      <!-- 添加反饋按鈕 -->
-                      <div class="flex justify-end mt-3 items-center">
-                        <span class="text-20px text-#7e7e7e mr-2"
-                          >分析有用嗎？</span
+                      <div
+                        class="border-1 border-solid border-#ddd rounded-4px p-3 mb-3 mt-3"
+                      >
+                        <div
+                          class="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                          @click="
+                            scrollToSection(
+                              'autobiography-section',
+                              '我堅信技術創新與團隊協作是驅動成功的核心'
+                            )
+                          "
                         >
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item5.liked }"
-                          @click="handleFeedback('item5', 'like')"
+                          <span
+                            class="text-14px text-#00afb8 font-bold line-clamp-2"
+                          >
+                            我堅信技術創新與團隊協作是驅動成功的核心，始終以積極的學習態度與卓越的執行力迎接挑戰。
+                          </span>
+                          <span
+                            class="flex items-center justify-center ml-2 flex-shrink-0"
+                          >
+                            <img
+                              src="@/assets/images/arrow_circle_right_green.svg"
+                              alt=""
+                              class="text-#00afb8"
+                            />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="text-16px leading-24px text-#555 mt-0">
+                        建議提問：
+                        <div
+                          class="p-4 bg-#f4eff9 rounded-8px mt-2 border-l-4 border-l-#00afb8 relative group cursor-pointer hover:bg-#e6daf2 transition-colors shadow-sm"
+                          @click="
+                            copyToClipboard(
+                              '面試提問建議：\n\n您可以挑戰履歷中的套話模式，例如請求職者分享一個具體案例，說明如何通過創新和協作解決技術挑戰，以及「積極的學習態度」在實際工作中的體現。\n\n同時，您也可以嘗試打破制式模板，邀請求職者談談職業生涯中的挫折經歷，或者請他分享如果重新設計數位轉型平台，會採取哪些不同的技術路線。這樣的對話能幫助您了解求職者真實的思維模式與經驗。'
+                            )
+                          "
                         >
-                          <img
-                            src="@/assets/images/icon_thumbs_up.svg"
-                            alt="讚"
-                            class="w-5 h-5"
-                          />
-                        </button>
-                        <button
-                          class="p-1 flex items-center justify-center rounded-full hover:bg-#E6F7F8 transition-colors"
-                          :class="{ 'bg-#E6F7F8': feedbacks.item5.disliked }"
-                          @click="handleFeedback('item5', 'dislike')"
-                        >
-                          <img
-                            src="@/assets/images/icon_thumbs_down.svg"
-                            alt="倒讚"
-                            class="w-5 h-5"
-                          />
-                        </button>
+                          <div
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#00AFB8"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
+                              <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
+                            </svg>
+                          </div>
+                          <div class="font-normal">
+                            <p class="m-0">
+                              您可以請求職者用具體案例說明如何透過創新與協作解決技術挑戰，以及「積極學習態度」在工作中的實際體現。也可以請他分享職業生涯中的挫折經歷，藉此了解求職者的真實思維方式與解決問題的能力。
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
